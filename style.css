@@ -1,4 +1,8 @@
-footer{
+header{
+    background-color: #662d91;
+}
+footer{ 
+    background-color: #662d91;
     color: white;
     display: flex;
     position: fixed; bottom:0; width: 100%;
