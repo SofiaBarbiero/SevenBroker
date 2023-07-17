@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          height: 100vh;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-content: center;
+        }
+    
+        .container {
+          width: 30%;
+    margin: 0 auto;
+    padding: 60px 80px;
+    border-radius: 5px;
+    background-color: rgb(226, 215, 250);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+          
+        }
+    
+        .container h2 {
+          text-align: center;
+          color: #662D91;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-content: center;
+            width: 90%;
+            
+        }
+    
+        .container input[type="email"],
+        .container input[type="password"] {
+          padding: 10px;
+          margin-bottom: 24px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+        }
+    
+        .container input[type="submit"] {
+          padding: 10px;
+          background-color: #662D91;
+          color: #fff;
+          border: none;
+          border-radius: 3px;
+          cursor: pointer;
+        
+        }
+        .container label {
+          color: #662D91;
+          font-size: 14px;
+          padding-bottom: 0.2rem;
+          font-weight: 600;
+          
+        }
+      </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Crear Cuenta</h2>
+        <form action="#" method="post">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Email" required>
+          <label>Repetir Email</label>
+          <input type="email" name="repeated_email" placeholder="Repetir Email" required>
+          <label>Contraseña</label>
+          <input type="password" name="password" placeholder="Contraseña" required>
+          <label>Repetir Contraseña</label>
+          <input type="password" name="repeated_password" placeholder="Repetir Contraseña" required>
+          <input type="submit" value="Registrarse">
+        </form>
+      </div>
+</body>
+</html>
