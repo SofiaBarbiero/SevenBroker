@@ -48,6 +48,8 @@ body{
 .container .form-control{
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
     border: none ;
+    font-size: 14px;
+   
    
 }
 
