@@ -1,0 +1,123 @@
+*{
+    font-family: 'Maven Pro', sans-serif;
+}
+
+main{
+    background-color:#ffffff;
+}
+
+.portafolio__container{
+    gap: 1rem
+
+}
+
+.portafolio__tablas{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 2rem;
+
+}
+
+.portafolio__head{
+    display: flex;
+    align-items: center;
+    color:#662D91;
+}
+
+.portafolio__titulo{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.portafolio__titulo-nombre{
+    color:#662D91;
+}
+
+.portafolio__cuentas{
+    display: flex;
+}
+
+.portafolio__cuenta{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color:#662D91;
+    font-size: 1em;
+    font-weight: 500;
+    width: auto;
+    padding: 0.5rem;
+
+}
+
+.portafolio__cuenta--activa{
+    border-bottom: 2px #662D91 solid;
+
+}
+
+.portafolio__cuenta img{
+    margin-right: 10px;
+}
+
+button{
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.portafolio__contenido {
+    background-color: #bbb0cf;
+    border: solid 2px rgba(182, 155, 204, 0.5) ;
+    border-radius: 5px;
+    padding: 2rem;
+
+}
+
+.portafolio__contenido-cuadro {
+    border-radius: 5px;
+    overflow: hidden;
+
+}
+
+.portafolio__contenido-titulo {
+    background-color: #957bc5;
+    font-size: 16px;
+    padding: 1rem;
+
+}
+
+.portafolio__contenido-subtitulo {
+    background-color: #9984bd;
+    font-size: 15px;
+    padding: 1rem;
+
+}
+
+.portafolio__contenido-elemento {
+    background-color: rgb(158, 143, 185);
+    font-size: 14px;
+    padding: 1rem;
+}
+
+.portafolio__contenido-divisor{
+    background: #7e59c4;
+    height: 2px;
+    margin: 1rem;
+
+}
+
+.portafolio__contenido-cuenta{
+    display: flex;
+    gap: 1em;
+}
+
+.portafolio__contenido-apartado{
+    color: #4e1e72;
+    font-size: 24px;
+}
+.portafolio__contenido-subapartado{
+    color: #4e1e72;
+    font-size: 20px;
+}
