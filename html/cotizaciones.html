@@ -12,36 +12,135 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-          <div class="col">
-            <nav class="navbar">
-              <div class="container-fluid">
-                <a class="navbar-brand">Seven Broker</a>
+          <nav class="navbar">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">
+                <img src="../img/sevenBroker_Blanco.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+              </a>
+            <div class="col-4">
                 <form class="d-flex">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                  <button class="btn btn-outline-success" type="submit">Buscar</button>
-                  <a class="btn" href="#" role="button">Registrarse</a>
-                  <a class="nav-link active" aria-current="page" href="#">Ingresar</a>
+                  <input class="form-control me-2" type="search">
+                  <button class="btn" type="submit">Buscar</button>
                 </form>
-              </div>
-            </nav>
+            </div>
+            <div class="col-2">
+              <button class="btn" type="submit">Registrarse</button>
+              <a class="ingresar" href="">Ingresar</a>
+            </div>
+          </nav>
+        </div>
+    </div>
+        <div class="row">
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-md-4 nav-tabs pt10 pb5 text-center">
+            <span>
+                <strong>Merval:</strong>
+                443.303,60
+            </span>
+
+            <span class="neutral ml10">
+                <span class="sprite-inline sprite-arrow"></span><span class="tar ml5"> = 0,00</span>%
+            </span>
+          </div>
+          <div class="col-md-4 nav-tabs pt10 pb5 text-center">
+            <span>
+                <strong>Bolsa:</strong>
+                18.700.799,42
+            </span>
+
+            <span class="neutral ml10">
+                <span class="sprite-inline sprite-arrow"></span><span class="tar ml5"> = 0,00</span>%
+            </span>
+          </div>
+          <div class="col-md-4 nav-tabs pt10 pb5 text-center">
+            <span>
+                <strong>Burcap:</strong>
+                0,00
+            </span>
+
+            <span class="neutral ml10">
+                <span class="sprite-inline sprite-arrow"></span><span class="tar ml5"> = 0,00</span>%
+            </span>
           </div>
         </div>
         <div class="row">
-          <p></p>
-        </div>
-        <div class="row">
-          <p></p>
-        </div>
-        <div class="row">
             <div class="col-8">
-              <h3>Cotización de Acciones Argentinas</h3>
+              <p class="titulo">Cotización de Acciones Argentinas</p>
             </div>
         </div>
         <div class="row">
           <div class="col-8">
-            <h4>Acciones - Argentina</h4>
+            <p class="subtitulo">Acciones - Argentina</p>
           </div>
         </div>
+        <div class="row">
+          <div class="container">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Símbolo</th>
+                <th scope="col">Último Operado</th>
+                <th scope="col">Variación Diaria</th>
+                <th scope="col">Cantidad Compra</th>
+                <th scope="col">Precio Compra</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">Cantidad Venta</th>
+                <th scope="col">Apertura</th>
+                <th scope="col">Mínimo</th>
+                <th scope="col">Máximo</th>
+                <th scope="col">Último Cierre</th>
+                <th scope="col">Monto Operado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">ALUA</th>
+                <td>410,00</td>
+                <td>= 0%</td>
+                <td class="table-info">-</td>
+                <td class="table-info">-</td>
+                <td class="table-danger">-</td>
+                <td class="table-danger">-</td>
+                <td>411,50</td>
+                <td>395</td>
+                <td>413</td>
+                <td>410</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th scope="row">BBAR</th>
+                <td>1038,10</td>
+                <td>= 0%</td>
+                <td class="table-info">-</td>
+                <td class="table-info">-</td>
+                <td class="table-danger">-</td>
+                <td class="table-danger">-</td>
+                <td>1047</td>
+                <td>1002</td>
+                <td>1062</td>
+                <td>1038,10</td>
+                <td>0</td>
+              </tr>
+              <tr>
+                <th scope="row">BMA</th>
+                <td>1502,80</td>
+                <td>= 0%</td>
+                <td class="table-info">-</td>
+                <td class="table-info">-</td>
+                <td class="table-danger">-</td>
+                <td class="table-danger">-</td>
+                <td>1525</td>
+                <td>1470</td>
+                <td>1560</td>
+                <td>1502,80</td>
+                <td>0</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     
 
