@@ -1,22 +1,26 @@
-header{
+.navbar{
     background-color: #662d91;
+}
+
+.nav-item{
+    color: white;
 }
 footer{ 
     background-color: #662d91;
     color: white;
     display: flex;
     position: fixed; bottom:0; width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
 }
 .container{
     display: flex;
 }
 .derechos{
     display: flex;
-    font-size: 0,1em;
- color: white;
+    font-size: 0,1em;   
+    color: white;
 }
 .redes{
     display: flex;
