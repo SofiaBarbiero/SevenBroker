@@ -1,12 +1,21 @@
-.navbar{
-    background-color: #662d91;
+* {
+    font-family: 'Maven Pro', sans-serif;
 }
 
-.nav-item{
+.navbar{
+    background-color: #7f4ca5;
+}
+
+.nav-item .nav-link{
     color: white;
 }
+
+.navbar-nav .nav-link.active{
+    color: white;
+}
+
 footer{ 
-    background-color: #662d91;
+    background-color: #7f4ca5;
     color: white;
     display: flex;
     position: fixed; bottom:0; width: 100%;
