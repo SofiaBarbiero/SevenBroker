@@ -5,8 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardHomeComponent } from './home/dashboard-home/dashboard-home.component';
 
 //Login y Register
-import { LoginComponent } from './user/login/login.component';
-import { RegisterComponent } from './user/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 //Portafolio
 import { DashboardPortafolioComponent } from './portafolio/dashboard-portafolio/dashboard-portafolio.component';
