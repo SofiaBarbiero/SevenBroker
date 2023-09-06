@@ -1,0 +1,43 @@
+* {
+    font-family: 'Maven Pro', sans-serif;
+}
+
+.navbar{
+    background-color: #7f4ca5;
+}
+
+.nav-item .nav-link{
+    color: white;
+}
+
+.navbar-nav .nav-link.active{
+    color: white;
+}
+
+footer{ 
+    background-color: #7f4ca5;
+    color: white;
+    display: flex;
+    position: fixed; bottom:0; width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+.container{
+    display: flex;
+}
+.derechos{
+    display: flex;
+    font-size: 0,1em;   
+    color: white;
+}
+.redes{
+    display: flex;
+    margin-left: 50%;
+}
+widget.no-box{ padding: 0; background-color: transparent;  margin-bottom: 40px;
+    box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; -o-box-shadow: none;}
+    ul.social-footer2 { margin: 0;padding: 0; width: auto;}
+ul.social-footer2 li {display: inline-block;padding: 0;}
+ul.social-footer2 li a:hover {background-color:#ff8d1e;}
+ul.social-footer2 li a {display: block; height:30px;width: 30px;text-align: center;}
