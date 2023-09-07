@@ -59,7 +59,7 @@
     <div class="row portafolio__contenido-subtitulo">
       <div class="col-6">Total</div>
       <div class="col-6">
-        {{ totalEsteMes() | currency : "$" : "symbol" : "1.2-2" }}
+        {{ totalDelMes | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
       <h4 class="portafolio__contenido-subapartado">
         Operaciones realizadas este mes:
       </h4>
-      <p>{{ movimientosDelMes.movimientos.length }}</p>
+      <p>{{ cantidadDelMes }}</p>
     </div>
   </div>
 </article>

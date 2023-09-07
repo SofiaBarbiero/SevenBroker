@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AccionesService {
+export class JsonService {
 
   constructor(private http:HttpClient) { }
 
@@ -18,7 +18,12 @@ export class AccionesService {
   obtenerMovimientosDelMes(): Observable <any>{
     return this.http.get(this.url + "movimientos")
   }
+  
   obtenerIndexActivos(): Observable <any>{
     return this.http.get(this.url + "indexActivos")
+  }
+  
+  obtenerDatosUsuario(): Observable <any>{
+    return this.http.get(this.url + "datosUsuario")
   }
 }
