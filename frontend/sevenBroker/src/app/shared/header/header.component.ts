@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavigationService} from 'src/app/navigation.service'
+import {NavigationService} from 'src/app/services/navigation/navigation.service'
 
 @Component({
   selector: 'app-header',

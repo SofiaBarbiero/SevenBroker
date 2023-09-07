@@ -11,6 +11,8 @@ import { HomeModule } from './home/home.module';
 import { CompraModule } from './compra/compra.module';
 import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
 
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,8 @@ import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
     PortafolioModule,
     HomeModule,
     CompraModule,
-    CotizacionesModule
+    CotizacionesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
