@@ -1,0 +1,21 @@
+* {
+    font-family: 'Maven Pro', sans-serif;
+}
+
+p.titulo{
+    margin: 2.2%;
+    color:#662D91;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+p.subtitulo{
+    margin: 2.2%;
+    color: black; 
+    font-size: large;
+    font-weight: bold;
+}
+
+.table{
+    text-align: center;
+}
