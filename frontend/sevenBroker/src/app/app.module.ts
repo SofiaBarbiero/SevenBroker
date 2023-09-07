@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
+import { PortafolioModule } from './portafolio/portafolio.module';
+import { HomeModule } from './home/home.module';
+import { CompraModule } from './compra/compra.module';
+import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +20,11 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    AuthModule
+    AuthModule,
+    PortafolioModule,
+    HomeModule,
+    CompraModule,
+    CotizacionesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

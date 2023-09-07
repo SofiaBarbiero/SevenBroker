@@ -56,27 +56,49 @@ button {
 
 /* archivo estilos.css */
 
-main{
-    background-color:#ffffff;
+.portafolio__titulo{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    white-space: nowrap;
 }
 
-.portafolio__container{
-    gap: 1rem;
-    margin-left: 1rem;
-    margin-bottom: 3rem;
+.portafolio__titulo-nombre{
+    color:#662D91;
+}
 
+.portafolio__cuentas{
+    display: flex;
+}
+
+.portafolio__cuenta{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color:#662D91;
+    font-size: 1em;
+    font-weight: 500;
+    width: auto;
+    padding: 0.5rem;
+
+}
+
+.portafolio__cuenta--activa{
+    border-bottom: 2px #662D91 solid;
+
+}
+
+.portafolio__cuenta--inactiva{
+    color: #929094;
+
+}
+
+.portafolio__cuenta img{
+    margin-right: 10px;
 }
 
 button{
     outline: none;
     border: none;
     background-color: transparent;
-}
-
-.portafolio__tablas{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 2rem;
-
 }

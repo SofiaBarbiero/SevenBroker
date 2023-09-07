@@ -1,0 +1,81 @@
+<article class="portafolio__contenido">
+  <h3 class="portafolio__contenido-apartado">ACTIVOS</h3>
+  <div class="portafolio__contenido-cuadro">
+    <div class="row portafolio__contenido-titulo">
+      <div class="col">Activo</div>
+      <div class="col">Descripcion</div>
+      <div class="col">Activos comprados</div>
+      <div class="col">Activos Vendidos</div>
+      <div class="col">Variacion diaria</div>
+      <div class="col">Ultimo precio</div>
+      <div class="col">Precio promedio de compra</div>
+      <div class="col">Fecha</div>
+    </div>
+    <div
+      class="row portafolio__contenido-elemento"
+      *ngFor="let activo of activos"
+    >
+      <div class="col">{{ activo.simbolo }}</div>
+      <div class="col">{{ activo.descripcion }}</div>
+      <div class="col">{{ activo.puntas.cantidadCompra }}</div>
+      <div class="col">{{ activo.puntas.cantidadVenta }}</div>
+      <div class="col">{{ activo.variacionPorcentual }}%</div>
+      <div class="col">
+        {{ activo.ultimoPrecio | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+      <div class="col">
+        {{ (activo.maximo + activo.minimo) / 2 }}
+      </div>
+      <div class="col">{{ activo.fecha.slice(0, 10) }}</div>
+    </div>
+  </div>
+
+  <div class="portafolio__contenido-divisor"></div>
+
+  <div class="portafolio__contenido-cuadro">
+    <div class="row portafolio__contenido-titulo">
+      <div class="col">Movimientos de este mes</div>
+    </div>
+    <div class="row portafolio__contenido-subtitulo">
+      <div class="col">Simbolo</div>
+      <div class="col">Descripcion</div>
+      <div class="col">Precio</div>
+      <div class="col">Fecha</div>
+    </div>
+    <div
+      class="row portafolio__contenido-elemento"
+      *ngFor="let movimiento of movimientosDelMes.movimientos"
+    >
+      <div class="col-3">{{ movimiento.simbolo }}</div>
+      <div class="col-3">{{ movimiento.descripcion }}</div>
+      <div class="col-3" *ngIf="movimiento.tipo === 'compra'">
+        {{ movimiento.precio | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+      <div class="col-3" *ngIf="movimiento.tipo === 'venta'">
+        -{{ movimiento.precio | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+      <div class="col-3">{{ movimiento.fecha.slice(0, 10) }}</div>
+    </div>
+    <div class="row portafolio__contenido-subtitulo">
+      <div class="col-6">Total</div>
+      <div class="col-6">
+        {{ totalEsteMes() | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="portafolio__contenido-divisor"></div>
+
+  <div class="row">
+    <div class="col">
+      <h4 class="portafolio__contenido-subapartado">Mostrando actividad de:</h4>
+      <p>Julio de 2023</p>
+    </div>
+    <div class="col">
+      <h4 class="portafolio__contenido-subapartado">
+        Operaciones realizadas este mes:
+      </h4>
+      <p>{{ movimientosDelMes.movimientos.length }}</p>
+    </div>
+  </div>
+</article>
