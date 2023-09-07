@@ -1,0 +1,40 @@
+.carrousel-button {
+  color: #662D91;
+  border-color: #662D91;
+  border-width: 1.4px;
+  padding: 9px 29px;
+  background-color: #fff;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+.carrousel-button-left {
+  color: #fff;
+  border-color: #662D91;
+  border-width: 1.4px;
+  padding: 9px 29px;
+  background-color: #662D91;
+  border-radius: 12px;
+  font-size: 1rem;
+}
+
+.carrousel-button:hover {
+  color: #fff;
+  border-color: #662D91;
+  border-width: 1.4px;
+  padding: 9px 29px;
+  background-color: #662D91;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: 0.5s;
+}
+
+.carrousel-button-left:hover {
+  color: #662D91;
+  border-color: #662D91;
+  border-width: 1.4px;
+  padding: 9px 29px;
+  background-color: #fff;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: 0.5s;
+}
