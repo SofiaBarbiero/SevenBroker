@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-8">
+    <p class="subtitulo">Acciones - Argentina</p>
+  </div>
+</div>
+<div class="row">
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Símbolo</th>
+          <th scope="col">Último Operado</th>
+          <th scope="col">Variación Diaria</th>
+          <th scope="col">Cantidad Compra</th>
+          <th scope="col">Precio Compra</th>
+          <th scope="col">Precio Venta</th>
+          <th scope="col">Cantidad Venta</th>
+          <th scope="col">Apertura</th>
+          <th scope="col">Mínimo</th>
+          <th scope="col">Máximo</th>
+          <th scope="col">Último Cierre</th>
+          <th scope="col">Monto Operado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let accion of acciones.titulos">
+          <th scope="row">{{accion.simbolo}}</th>
+          <td>{{accion.ultimoPrecio | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td>{{accion.variacionPorcentual}}</td>
+          <td class="table-info">{{accion.puntas.cantidadCompra}}</td>
+          <td class="table-info">{{accion.puntas.precioCompra | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td class="table-danger">{{accion.puntas.precioVenta | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td class="table-danger">{{accion.puntas.cantidadVenta}}</td>
+          <td>{{accion.apertura}}</td>
+          <td>{{accion.minimo}}</td>
+          <td>{{accion.maximo}}</td>
+          <td>{{accion.ultimoCierre}}</td>
+          <td>{{accion.volumen}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
