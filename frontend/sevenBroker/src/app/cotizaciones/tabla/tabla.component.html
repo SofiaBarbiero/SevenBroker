@@ -23,47 +23,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">ALUA</th>
-          <td>410,00</td>
-          <td>= 0%</td>
-          <td class="table-info">-</td>
-          <td class="table-info">-</td>
-          <td class="table-danger">-</td>
-          <td class="table-danger">-</td>
-          <td>411,50</td>
-          <td>395</td>
-          <td>413</td>
-          <td>410</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th scope="row">BBAR</th>
-          <td>1038,10</td>
-          <td>= 0%</td>
-          <td class="table-info">-</td>
-          <td class="table-info">-</td>
-          <td class="table-danger">-</td>
-          <td class="table-danger">-</td>
-          <td>1047</td>
-          <td>1002</td>
-          <td>1062</td>
-          <td>1038,10</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <th scope="row">BMA</th>
-          <td>1502,80</td>
-          <td>= 0%</td>
-          <td class="table-info">-</td>
-          <td class="table-info">-</td>
-          <td class="table-danger">-</td>
-          <td class="table-danger">-</td>
-          <td>1525</td>
-          <td>1470</td>
-          <td>1560</td>
-          <td>1502,80</td>
-          <td>0</td>
+        <tr *ngFor="let accion of acciones.titulos">
+          <th scope="row">{{accion.simbolo}}</th>
+          <td>{{accion.ultimoPrecio | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td>{{accion.variacionPorcentual}}</td>
+          <td class="table-info">{{accion.puntas.cantidadCompra}}</td>
+          <td class="table-info">{{accion.puntas.precioCompra | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td class="table-danger">{{accion.puntas.precioVenta | currency : "$" : "symbol" : "1.2-2"}}</td>
+          <td class="table-danger">{{accion.puntas.cantidadVenta}}</td>
+          <td>{{accion.apertura}}</td>
+          <td>{{accion.minimo}}</td>
+          <td>{{accion.maximo}}</td>
+          <td>{{accion.ultimoCierre}}</td>
+          <td>{{accion.volumen}}</td>
         </tr>
       </tbody>
     </table>
