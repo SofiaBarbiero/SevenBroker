@@ -38,41 +38,19 @@
   <p></p>
 </div>
 <div class="row">
-  <div class="col-md-4 nav-tabs pt10 pb5 text-center">
+  <div class="col-md-3 nav-tabs pt10 pb5 text-center" *ngFor="let accion of acciones.titulos">
     <span>
-      <strong>Merval:</strong>
-      443.303,60
+      <strong>{{accion.descripcion}}: </strong>
+      {{accion.ultimoPrecio}}
     </span>
 
     <span class="neutral ml10">
       <span class="sprite-inline sprite-arrow"></span
-      ><span class="tar ml5"> = 0,00</span>%
+      ><span class="tar ml5"> = {{accion.variacionPorcentual}}</span>%
     </span>
   </div>
-  <div class="col-md-4 nav-tabs pt10 pb5 text-center">
-    <span>
-      <strong>Bolsa:</strong>
-      18.700.799,42
-    </span>
-
-    <span class="neutral ml10">
-      <span class="sprite-inline sprite-arrow"></span
-      ><span class="tar ml5"> = 0,00</span>%
-    </span>
-  </div>
-  <div class="col-md-4 nav-tabs pt10 pb5 text-center">
-    <span>
-      <strong>Burcap:</strong>
-      0,00
-    </span>
-
-    <span class="neutral ml10">
-      <span class="sprite-inline sprite-arrow"></span
-      ><span class="tar ml5"> = 0,00</span>%
-    </span>
-  </div>
-</div>
-<div class="row">
+  
+  <div class="row">
   <div class="col-8">
     <p class="titulo">Cotización de Acciones Argentinas</p>
   </div>
