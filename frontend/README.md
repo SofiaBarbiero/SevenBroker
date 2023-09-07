@@ -32,6 +32,35 @@ Documento de nomenclatura para Frontend
     }
     ```
 
+-   **Archivos**: kebab-case
+
+    ```
+    // Estructura de ejemplo (Proyecto de angular simplificado)
+
+    └── src/
+        ├── app/
+        |    └── custom-button/
+        |        ├── app.component.ts
+        |        ├── app.component.css
+        |        ├── app.component.html
+        |        ├── shared/
+        |        |      └── header/
+        |        |               ├── header.component.ts
+        |        |               ├── header.component.css
+        |        |               └── header.component.html
+        |        └── main-dashboard/
+        |                   ├── main-dashboard.component.ts
+        |                   ├── main-dashboard.component.css
+        |                   └── main-dashboard.component.html
+        |
+        |
+        └── assets/
+             ├── fondo.png
+             ├── icono.svg
+             └── logo-portada/
+                    └── logo.svg
+    ```
+
 -   **Componentes**: PascalCase
 
     > Componentes de Angular
