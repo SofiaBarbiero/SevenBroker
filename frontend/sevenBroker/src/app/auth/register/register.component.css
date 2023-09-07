@@ -1,0 +1,55 @@
+.custom-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.justify-content-center {
+  -ms-flex-pack: center!important;
+  justify-content: center!important;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .card{
+  border: none ;
+  background-color: #F5E8FF ;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+}
+
+.container .card-body{
+  padding: 1.25rem 3rem;
+}
+
+
+.container .btn{
+  background-color: #662D91 ;
+  color: #FFF ;
+  margin-top: 1.5rem;
+}
+
+.container .text-center{
+  padding-bottom: 1.5rem ;
+  color: #662D91 ;
+}
+
+.container .form-control{
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+  border: none ;
+  font-size: 14px;
+
+
+}
+
+.container .form-group{
+  margin-bottom: 1.5rem;
+}
+
+.container label{
+  margin-bottom: 0.1rem ;
+  color: #662D91 ;
+}
