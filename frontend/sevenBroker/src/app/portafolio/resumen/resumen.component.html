@@ -1,0 +1,46 @@
+<article class="portafolio__contenido">
+  <h3 class="portafolio__contenido-apartado">RESUMEN</h3>
+
+  <div class="portafolio__contenido-cuadro">
+    <div class="row portafolio__contenido-titulo">
+      <div class="col">Efectivo Disponible</div>
+    </div>
+    <div class="row portafolio__contenido-elemento">
+      <div class="col">Pesos (AR$)</div>
+      <div class="col">
+        {{ efectivoDisponible | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="portafolio__contenido-divisor"></div>
+
+  <div class="portafolio__contenido-cuadro">
+    <div class="row portafolio__contenido-titulo">
+      <div class="col">Monto total valorizado en activos</div>
+    </div>
+    <div class="row portafolio__contenido-elemento">
+      <div class="col">Pesos (AR$)</div>
+      <div class="col">
+        {{ totalActivos() | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+    </div>
+  </div>
+
+  <div class="portafolio__contenido-divisor"></div>
+
+  <div class="portafolio__contenido-cuadro">
+    <div class="row portafolio__contenido-titulo">
+      <div class="col">Monto valorizado por cada activo</div>
+    </div>
+    <div
+      class="row portafolio__contenido-elemento"
+      *ngFor="let activo of activos"
+    >
+      <div class="col">{{ activo.simbolo }}</div>
+      <div class="col">
+        {{ montoActivoUnico(activo) | currency : "$" : "symbol" : "1.2-2" }}
+      </div>
+    </div>
+  </div>
+</article>
