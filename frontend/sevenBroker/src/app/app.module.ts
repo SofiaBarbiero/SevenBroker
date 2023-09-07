@@ -13,6 +13,8 @@ import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { HttpClientModule } from "@angular/common/http";
+
 @NgModule({
   declarations: [
     AppComponent,
