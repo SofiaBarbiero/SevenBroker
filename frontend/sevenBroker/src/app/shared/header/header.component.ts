@@ -7,6 +7,9 @@ import {NavigationService} from 'src/app/services/navigation/navigation.service'
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+  loginOn:boolean=false;
+
 constructor(private NavigationService : NavigationService){}
   navigateHome(){
 this.NavigationService.navigateToHome()

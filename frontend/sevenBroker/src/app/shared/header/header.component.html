@@ -45,14 +45,14 @@
               >Cotizaciones</a
             >
           </li>
-          <li (click)="navigateRegister()" class="nav-item">
-            <a routerLink="/register" class="nav-link" href="/register"
-              >Registrarse</a
+          <li *ngIf="!loginOn" (click)="navigateIngreso()" class="nav-item">
+            <a  class="nav-link" href="/login"
+              >Iniciar Sesión</a
             >
           </li>
-          <li (click)="navigateIngreso()" class="nav-item">
-            <a routerLink="/ingreso" class="nav-link" href="/ingreso"
-              >Log in</a
+
+          <li *ngIf="loginOn"  class="nav-item">
+            <a class="nav-link" >Cerrar Sesión</a
             >
           </li>
         </ul>

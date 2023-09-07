@@ -23,7 +23,7 @@ navigateToRegister(){
 }
 
 navigateToIngreso(){
-  this.router.navigate([('/ingreso')])
+  this.router.navigate([('/login')])
 }
 
 }
