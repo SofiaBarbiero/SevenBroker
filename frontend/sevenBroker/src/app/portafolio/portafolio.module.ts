@@ -4,6 +4,7 @@ import { DashboardPortafolioComponent } from './dashboard-portafolio/dashboard-p
 import { ResumenComponent } from './resumen/resumen.component';
 import { ActivosComponent } from './activos/activos.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
+import { CuentasComponent } from './cuentas/cuentas.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { CabeceraComponent } from './cabecera/cabecera.component';
     ResumenComponent,
     ActivosComponent,
     CabeceraComponent,
+    CuentasComponent,
   ],
   exports: [
     DashboardPortafolioComponent,

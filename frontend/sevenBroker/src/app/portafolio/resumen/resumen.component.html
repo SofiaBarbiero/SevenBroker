@@ -22,7 +22,7 @@
     <div class="row portafolio__contenido-elemento">
       <div class="col">Pesos (AR$)</div>
       <div class="col">
-        {{ totalActivos() | currency : "$" : "symbol" : "1.2-2" }}
+        {{ totalValorizadoEnActivos | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>
@@ -35,11 +35,11 @@
     </div>
     <div
       class="row portafolio__contenido-elemento"
-      *ngFor="let activo of activos"
+      *ngFor="let activo of activosIndividuales"
     >
       <div class="col">{{ activo.simbolo }}</div>
       <div class="col">
-        {{ montoActivoUnico(activo) | currency : "$" : "symbol" : "1.2-2" }}
+        {{ activo.montoTotal | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>
