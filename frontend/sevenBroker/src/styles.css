@@ -1,3 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'Maven Pro';
+    src: url('https://fonts.gstatic.com/s/mavenpro/v21/7Auqv4D6DxkMIfJl2xq.woff2') format('woff2');
+    
+  }
+  
 * {
   font-family: 'Maven Pro', sans-serif;
 }

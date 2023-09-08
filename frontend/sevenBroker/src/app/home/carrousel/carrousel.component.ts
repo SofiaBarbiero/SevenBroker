@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-carrousel',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class CarrouselComponent {
 
+  constructor(private NavigationService : NavigationService){}
+
+  navigateIngreso(){
+    this.NavigationService.navigateToIngreso()
+  }
+
+  navigateRegister(){
+    this.NavigationService.navigateToRegister()
+  }
 }

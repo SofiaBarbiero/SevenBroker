@@ -1,1 +1,16 @@
-<p>dashboard-portafolio works!</p>
+<main class="row container-fluid">
+  <section class="portafolio__container">
+    <app-cabecera></app-cabecera>
+    <!-- <button class="button__show" *ngIf="!showContent" (click)="toggleContent()">
+      Mostrar contenido
+    </button>
+    <button class="button__show" *ngIf="showContent" (click)="toggleContent()">
+      Ocultar contenido
+    </button> -->
+    <app-cuentas></app-cuentas>
+    <div class="row portafolio__tablas">
+      <app-activos class="col-lg-8"></app-activos>
+      <app-resumen class="col-lg-4"></app-resumen>
+    </div>
+  </section>
+</main>

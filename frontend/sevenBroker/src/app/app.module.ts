@@ -10,11 +10,15 @@ import { PortafolioModule } from './portafolio/portafolio.module';
 import { HomeModule } from './home/home.module';
 import { CompraModule } from './compra/compra.module';
 import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
+import { AuthService } from './services/auth.service';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-  
+
   ],
   imports: [
     BrowserModule,
@@ -24,9 +28,10 @@ import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
     PortafolioModule,
     HomeModule,
     CompraModule,
-    CotizacionesModule
+    CotizacionesModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
