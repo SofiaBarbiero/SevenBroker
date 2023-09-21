@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./cabecera.component.css']
 })
 export class CabeceraComponent {
+
+  title: string="Cotización de Acciones Argentinas";
+  
     acciones:any = {
       titulos: [
         {

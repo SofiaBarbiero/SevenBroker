@@ -28,10 +28,10 @@ button{
 
 .button__buy{
 	border-radius: 3px;
-	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+	filter: drop-shadow(0px 4px 4px rgb(255, 255, 255)) ;
 	transition: background-color 0.2s ease;
 
-	background-color: #a8c4ca;
+	background-color: #af50f8;
 
 	padding: 0.5rem;
 	margin-left: 1rem;
@@ -40,10 +40,10 @@ button{
 
 .button__buy:hover{
 
-	background-color: #bddfe7;
+	background-color: #ddb5fc;
 }
 
 .button__buy:active{
 
-	background-color: #5cc5c0;
+	background-color: #662D91;
 }
