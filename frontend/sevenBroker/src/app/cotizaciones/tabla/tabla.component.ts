@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./tabla.component.css']
 })
 export class TablaComponent {
+
+  subtitle: string="Acciones - Argentina";
+  
     acciones:any = {
       titulos: [
         {
