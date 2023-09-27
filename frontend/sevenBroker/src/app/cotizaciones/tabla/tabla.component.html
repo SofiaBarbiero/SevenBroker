@@ -24,29 +24,29 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let accion of acciones.titulos">
-          <th scope="row">{{ accion.simbolo }}</th>
+        <tr *ngFor="let cotizacion of listaCotizaciones">
+          <th scope="row">{{ cotizacion.simbolo }}</th>
           <td>
-            {{ accion.ultimoPrecio | currency : "$" : "symbol" : "1.2-2" }}
+            {{ cotizacion.ultimoPrecio | currency : "$" : "symbol" : "1.2-2" }}
           </td>
-          <td>{{ accion.variacionPorcentual }}</td>
-          <td class="table-info">{{ accion.puntas.cantidadCompra }}</td>
+          <td>{{ cotizacion.variacionPorcentual }}</td>
+          <td class="table-info">{{ cotizacion.puntas?.cantidadCompra }}</td>
           <td class="table-info">
             {{
-              accion.puntas.precioCompra | currency : "$" : "symbol" : "1.2-2"
+              cotizacion.puntas?.precioCompra | currency : "$" : "symbol" : "1.2-2"
             }}
           </td>
           <td class="table-danger">
             {{
-              accion.puntas.precioVenta | currency : "$" : "symbol" : "1.2-2"
+              cotizacion.puntas?.precioVenta | currency : "$" : "symbol" : "1.2-2"
             }}
           </td>
-          <td class="table-danger">{{ accion.puntas.cantidadVenta }}</td>
-          <td>{{ accion.apertura }}</td>
-          <td>{{ accion.minimo }}</td>
-          <td>{{ accion.maximo }}</td>
-          <td>{{ accion.ultimoCierre }}</td>
-          <td>{{ accion.volumen }}</td>
+          <td class="table-danger">{{ cotizacion.puntas?.cantidadVenta }}</td>
+          <td>{{ cotizacion.apertura }}</td>
+          <td>{{ cotizacion.minimo }}</td>
+          <td>{{ cotizacion.maximo }}</td>
+          <td>{{ cotizacion.ultimoCierre }}</td>
+          <td>{{ cotizacion.volumen }}</td>
           <td><button class="button__buy">Comprar</button></td>
         </tr>
       </tbody>

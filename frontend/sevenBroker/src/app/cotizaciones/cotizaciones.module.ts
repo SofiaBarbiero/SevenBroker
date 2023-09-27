@@ -6,6 +6,8 @@ import { TablaComponent } from './tabla/tabla.component';
 
 
 
+
+
 @NgModule({
   declarations: [
     DashboardCotizacionesComponent,

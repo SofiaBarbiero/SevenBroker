@@ -1,52 +1,16 @@
-<!-- <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="./index.html">
-      <img
-        src="../../../assets/img/sevenBroker_Blanco.png"
-        alt=""
-        width="30"
-        height="24"
-        class="d-inline-block align-text-top"
-      />
-    </a>
-
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#menu"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="menu">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" />
-        <button class="btn" type="submit">Buscar</button>
-      </form>
-
-      <button class="btn ms-auto" type="button">Registrarse</button>
-      <a class="ingresar" href="./ingreso.html">Ingresar</a>
-    </div>
-  </div>
-</nav> -->
-
 <div class="row">
   <p></p>
 </div>
 <div class="row">
-  <div class="col-md-3 nav-tabs pt10 pb5 text-center" *ngFor="let accion of acciones.titulos">
+  <div class="col-md-3 nav-tabs pt10 pb5 text-center" *ngFor="let item of itemMostrar">
     <span>
-      <strong>{{accion.descripcion}}: </strong>
-      {{accion.ultimoPrecio}}
+      <strong>{{item.descripcion}}: </strong>
+      {{item.ultimoPrecio}}
     </span>
 
     <span class="neutral ml10">
       <span class="sprite-inline sprite-arrow"></span
-      ><span class="tar ml5"> = {{accion.variacionPorcentual}}</span>%
+      ><span class="tar ml5"> = {{item.variacionPorcentual}}</span>%
     </span>
   </div>
   
