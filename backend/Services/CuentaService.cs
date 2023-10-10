@@ -4,8 +4,8 @@ namespace Backend.Services
 {
     public class CuentaService
     {
-        private readonly CuentaContext cuentaContext;
-        public CuentaService(CuentaContext cuentaContext)
+        private readonly DBContext cuentaContext;
+        public CuentaService(DBContext cuentaContext)
         {
             this.cuentaContext = cuentaContext;
         }

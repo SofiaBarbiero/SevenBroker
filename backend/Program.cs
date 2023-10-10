@@ -14,12 +14,9 @@ var connectionString = configuration.GetConnectionString("connMyDB");
 // Add services to the container.
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<UsuarioContext>(opt =>
+builder.Services.AddDbContext<DBContext>(opt =>
 opt.UseSqlServer(connectionString));
-builder.Services.AddDbContext<CuentaContext>(opt =>
-opt.UseSqlServer(connectionString));
-builder.Services.AddDbContext<CompraContext>(opt =>
-opt.UseSqlServer(connectionString));
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
