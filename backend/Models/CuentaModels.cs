@@ -2,7 +2,7 @@
 {
     public class CuentaModels
     {
-        public int IdCuenta { get; set; }
+        public int Id { get; set; }
         public double Saldo { get; set; }
     }
 }

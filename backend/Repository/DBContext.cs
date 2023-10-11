@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Backend.Repository
 {
@@ -12,5 +13,33 @@ namespace Backend.Repository
         public DbSet<CuentaModels> Cuenta { get; set; }
         public DbSet<CompraModels> Compra { get; set; }
 
+        public async Task<UsuarioModels?> Get(int id)
+        {
+            UsuarioModels? usuario = await Usuario.FirstOrDefaultAsync(p => p.UsuarioId == id);
+            return usuario;
+        }
+
+        public async Task<List<UsuarioModels>> Get()
+        {
+            return await Usuario.ToListAsync();
+        }
+
+        public async Task<UsuarioModels?> Create(UsuarioModels usuario)
+        {
+            EntityEntry<UsuarioModels> result = await Usuario.AddAsync(usuario);
+            await SaveChangesAsync();
+            return await Get(result.Entity.UsuarioId);
+        }
+
+        public void Delete(int id)
+        {
+            UsuarioModels? usuario = Usuario.FirstOrDefault(p => p.UsuarioId == id);
+            if(usuario != null)
+            {
+                Usuario.Remove(usuario);
+                SaveChanges();
+            }
+
+        }
     }
 }
