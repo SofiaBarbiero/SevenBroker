@@ -15,7 +15,7 @@ namespace Backend.Repository
 
         public async Task<UsuarioModels?> Get(int id)
         {
-            UsuarioModels? usuario = await Usuario.FirstOrDefaultAsync(p => p.UsuarioId == id);
+            UsuarioModels? usuario = await Usuario.FirstOrDefaultAsync(u => u.Id == id);
             return usuario;
         }
 
@@ -28,12 +28,12 @@ namespace Backend.Repository
         {
             EntityEntry<UsuarioModels> result = await Usuario.AddAsync(usuario);
             await SaveChangesAsync();
-            return await Get(result.Entity.UsuarioId);
+            return await Get(result.Entity.Id);
         }
 
         public void Delete(int id)
         {
-            UsuarioModels? usuario = Usuario.FirstOrDefault(p => p.UsuarioId == id);
+            UsuarioModels? usuario = Usuario.FirstOrDefault(u => u.Id == id);
             if(usuario != null)
             {
                 Usuario.Remove(usuario);
