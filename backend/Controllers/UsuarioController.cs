@@ -4,16 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+
+    [ApiController]
     public class UsuarioController : Controller
     {
         private readonly UsuarioService usuarioService;
         public UsuarioController (UsuarioService usuarioService) //injecto service
         {
             this.usuarioService = usuarioService;
-        }
-        public IActionResult Index()
-        {
-            return View();
         }
 
         [HttpGet("{id}")]

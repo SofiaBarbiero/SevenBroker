@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+
+    [ApiController]
     public class CuentaController : Controller
     {
         private readonly CuentaService cuentaService;
@@ -12,9 +15,5 @@ namespace Backend.Controllers
             this.cuentaService = cuentaService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
     }
 }

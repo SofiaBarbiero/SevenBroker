@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    [Route("api/[controller]")]
+
+    [ApiController]
     public class CompraController : Controller
     {
         private readonly CompraService compraService;
@@ -12,9 +15,6 @@ namespace Backend.Controllers
             this.compraService = compraService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+
     }
 }
