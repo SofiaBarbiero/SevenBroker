@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit{
           console.log(data);
           this.route.navigate(['/login'])
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error(error)
       },
       complete: () =>{
