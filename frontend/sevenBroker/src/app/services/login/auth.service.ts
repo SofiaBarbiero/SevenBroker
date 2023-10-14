@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { User, UserResponse } from '../shared/interfaces/user.interface';
+import { User, UserResponse } from '../../shared/interfaces/user.interface';
 // import { url } from 'inspector';
 import Swal from 'sweetalert2'
 
