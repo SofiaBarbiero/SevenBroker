@@ -18,7 +18,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult?> Get(int id)
         {
-            UsuarioModels? usuario = await usuarioService.Get(id);
+            UsuarioModel? usuario = await usuarioService.Get(id);
             return usuario!= null ? Ok(usuario) : NotFound();
         }
 
@@ -29,9 +29,9 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult?> Create(UsuarioModels usuario)
+        public async Task<IActionResult?> Create(UsuarioModel usuario)
         {
-            UsuarioModels? result = await usuarioService.Create(usuario);
+            UsuarioModel? result = await usuarioService.Create(usuario);
             return Ok(result);
         }
 

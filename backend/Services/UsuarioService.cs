@@ -12,17 +12,17 @@ namespace Backend.Services
             this.usuarioContext = usuarioContext;
         }
 
-        public async Task<UsuarioModels?> Get(int id)
+        public async Task<UsuarioModel?> Get(int id)
         {
             return await usuarioContext.Get(id);
         }
 
-        public async Task<List<UsuarioModels>> Get()
+        public async Task<List<UsuarioModel>> Get()
         {
             return await usuarioContext.Get();
         }
 
-        public async Task<UsuarioModels?> Create(UsuarioModels usuario)
+        public async Task<UsuarioModel?> Create(UsuarioModel usuario)
         {
             return await usuarioContext.Create(usuario);
         }
