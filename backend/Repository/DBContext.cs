@@ -15,25 +15,32 @@ namespace Backend.Repository
 
         //UsuarioModel
 
-        public async Task<UsuarioModel?> Get(int id)
+        public async Task<UsuarioModel?> GetUsuario(int id)
         {
             UsuarioModel? usuario = await Usuario.FirstOrDefaultAsync(u => u.Id == id);
             return usuario;
         }
 
-        public async Task<List<UsuarioModel>> Get()
+        public async Task<List<UsuarioModel>> GetUsuario()
         {
             return await Usuario.ToListAsync();
         }
 
-        public async Task<UsuarioModel?> Create(UsuarioModel usuario)
+        public async Task<UsuarioModel?> CreateUsuario(UsuarioModel usuario)
         {
             EntityEntry<UsuarioModel> result = await Usuario.AddAsync(usuario);
             await SaveChangesAsync();
-            return await Get(result.Entity.Id);
+            return await GetUsuario(result.Entity.Id);
         }
 
-        public void Delete(int id)
+        public async Task<UsuarioModel?> UpdateUsuario(UsuarioModel usuario)
+        {
+            EntityEntry<UsuarioModel> response = Usuario.Update(usuario);
+            await SaveChangesAsync();
+            return await GetUsuario(response.Entity.Id);
+        }
+
+        public void DeleteUsuario(int id)
         {
             UsuarioModel? usuario = Usuario.FirstOrDefault(u => u.Id == id);
             if(usuario != null)
