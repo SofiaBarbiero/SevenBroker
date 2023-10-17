@@ -1,4 +1,6 @@
-﻿namespace Backend.Models
+﻿using Backend.Dtos;
+
+namespace Backend.Models
 {
     public class UsuarioModel
     {
@@ -12,6 +14,19 @@
         public string Password { get; set; }
         //Relacion uno-uno
         public CuentaModel Cuenta { get; set; }
+
+        public UsuarioDto ToDto()
+        {
+            return new UsuarioDto()
+            {
+                Id = Id,
+                Nombre = Nombre,
+                Apellido = Apellido,
+                Email = Email,
+                Telefono = Telefono,
+                Dni = Dni,
+            };
+        }
 
     }
 }

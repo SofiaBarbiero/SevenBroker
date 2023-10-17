@@ -1,4 +1,5 @@
-﻿using Backend.Models;
+﻿using Backend.Dtos;
+using Backend.Models;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult?> Get(int id)
         {
-            UsuarioModel? usuario = await usuarioService.Get(id);
+            UsuarioDto usuario = await usuarioService.Get(id);
             return usuario!= null ? Ok(usuario) : NotFound();
         }
 
@@ -29,10 +30,21 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult?> Create(UsuarioModel usuario)
+        public async Task<IActionResult?> Create(NewUsuarioDto usuarioDto)
         {
-            UsuarioModel? result = await usuarioService.Create(usuario);
+            UsuarioDto result = await usuarioService.Create(usuarioDto);
             return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(UsuarioDto usuarioDto)
+        {
+            var result = await usuarioService.Update(usuarioDto);
+            if (result == null)
+            {
+                return new NotFoundResult();
+            }
+            return new OkObjectResult(result);
         }
 
         [HttpDelete]
