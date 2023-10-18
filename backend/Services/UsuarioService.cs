@@ -13,7 +13,7 @@ namespace Backend.Services
             this.usuarioContext = usuarioContext;
         }
 
-        public async Task<UsuarioDto> Get(int id)
+        public async Task<UsuarioDto?> Get(int id)
         {
             UsuarioModel? result = await usuarioContext.GetUsuario(id);
             return result.ToDto();
