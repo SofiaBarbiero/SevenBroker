@@ -12,8 +12,7 @@ namespace Backend.Models
         public int Dni { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        //Relacion uno-uno
-        public CuentaModel Cuenta { get; set; }
+     
 
         public UsuarioDto ToDto()
         {
