@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { User, UserResponse } from '../../shared/interfaces/user.interface';
+import { Register, RegisterResponse, User, UserResponse } from '../../shared/interfaces/user.interface';
 // import { url } from 'inspector';
 import Swal from 'sweetalert2'
 
@@ -11,22 +11,14 @@ import Swal from 'sweetalert2'
 })
 export class AuthService {
 
-
-  urlLogin:string="https://reqres.in/api/login"
-  urlRegister:string="https://reqres.in/api/register"
   private loggedIn = new BehaviorSubject<boolean>(false);
   private readonly JWT_TOKEN = 'token';
 
   constructor(private http:HttpClient, private router: Router) {}
 
-  // login(loginRequest: any): Observable<any>
-  // {
-  //   return this.http.post(this.urlLogin, loginRequest);
-  // }
-  register(registerRequest: any): Observable<any>
-  {
-    return this.http.post(this.urlRegister, registerRequest);
-  }
+
+  urlLogin:string="https://reqres.in/api/login"
+  urlRegister:string="https://reqres.in/api/register"
 
   get isLogged(): Observable<boolean> {
     return this.loggedIn.asObservable();
@@ -38,11 +30,8 @@ export class AuthService {
       .pipe(
         map((res: UserResponse) => {
           const userResponse = {} as UserResponse;
-          userResponse.access_token = res.access_token;
-          userResponse.expires_in = res.expires_in;
-          userResponse.refresh_token = res.refresh_token;
-          userResponse.activation_Date = res.activation_Date;
-          if(userResponse.access_token){
+          userResponse.token = res.token;
+          if(userResponse.token){
             this.saveToken(res);
             this.loggedIn.next(true)
 
@@ -57,14 +46,35 @@ export class AuthService {
               icon: 'warning',
               confirmButtonText: 'Aceptar'
             })
-            // alert('Credenciales incorrectas. Verifique su correo y contraseña.');
           }
           return this.handleError(error);
         })
       );
   }
 
+  register(registerRequest: Register): Observable<RegisterResponse | void> {
+    return this.http.post<RegisterResponse>(this.urlRegister, registerRequest).pipe(
+      map((res: RegisterResponse) => {
+        if (res.id && res.token) {
+          this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
+        }
+        return res;
+      }),
+      catchError((error) => {
+        if (error.status === 400) {
+          this.showErrorMessage('Error en el registro', 'Por favor, verifique los datos.');
+        }
+        return this.handleError(error);
+      })
+    );
+  }
 
+  logout() {
+    this.loggedIn.next(false);
+    this.cleanAuthInformation();
+    this.router.navigate(['/ingreso']);
+
+  }
 
   cleanAuthInformation() {
     this.clearAuthData();
@@ -76,16 +86,29 @@ export class AuthService {
   }
 
   saveToken(userResponse: UserResponse) {
-    localStorage.setItem(this.JWT_TOKEN, userResponse.access_token);
+    localStorage.setItem(this.JWT_TOKEN, userResponse.token);
   }
 
-  logout() {
-    //  localStorage.removeItem(this.JWT_TOKEN);
-    this.loggedIn.next(false);
-    this.cleanAuthInformation();
-    this.router.navigate(['/ingreso']);
 
+  private showSuccessMessage(title: string, message: string) {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
   }
+
+
+  private showErrorMessage(title: string, message: string) {
+    Swal.fire({
+      title: title,
+      text: message,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+    });
+  }
+
 
 
 
