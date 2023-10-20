@@ -4,9 +4,15 @@ export interface User {
 }
 
 export interface UserResponse extends User {
-  refresh_token: null | string;
-  revoked: number;
-  access_token: string;
-  expires_in: number;
-  activation_Date: string;
+  token: string;
+}
+
+export interface Register {
+  email: string;
+  password: string;
+}
+
+export interface RegisterResponse extends Register{
+  id: Number;
+  token: string;
 }
