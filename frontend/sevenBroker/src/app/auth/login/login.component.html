@@ -21,29 +21,23 @@
               </div>
             </div>
             <div class="form-group">
-              <label>Contraseña</label>
-              <input
-              [type]="passwordVisible ? 'text' : 'password'"
-                formControlName="password"
-                name="password"
-                class="form-control"
-                placeholder="Contraseña"
-                required
-              />
-              <div class="input-group-append">
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  (click)="togglePasswordVisibility()"
-                >
-                  <i class="fa" [ngClass]="{
-                    'fa-eye-slash': !passwordVisible,
-                    'fa-eye': passwordVisible
-                  }"></i>
-                </button>
-              </div>
-              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
-                <div *ngIf="password.errors?.['required']">La contraseña es requerida.</div>
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input
+                  type="{{ hide ? 'password' : 'text' }}"
+                  class="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  [formControl]="loginForm.controls.password"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text" (click)="hide = !hide">
+                    <i  class="fas" [ngClass]="hide ? 'fa-eye' : 'fa-eye-slash'">
+                    </i>
+                  </span>
+                </div>
               </div>
             </div>
             <div class="text-center">

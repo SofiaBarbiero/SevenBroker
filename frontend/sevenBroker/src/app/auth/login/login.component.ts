@@ -14,7 +14,8 @@ import { User } from 'src/app/shared/interfaces/user.interface';
 })
 export class LoginComponent implements OnInit {
 
-  passwordVisible = false;
+  hide = true;
+
   loginForm = this.formBuilder.group({
     email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
     password: ['cityslicka', Validators.required]
@@ -61,9 +62,9 @@ export class LoginComponent implements OnInit {
   }
 
   // Método para mostrar u ocultar la contraseña
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
-  }
+  // togglePasswordVisibility() {
+  //   this.passwordVisible = !this.passwordVisible;
+  // }
 
 
 
