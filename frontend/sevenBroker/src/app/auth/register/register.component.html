@@ -27,7 +27,23 @@
                         </div> -->
                       <div class="form-group">
                           <label>Contraseña</label>
-                          <input type="password" formControlName="password" name="password" class="form-control" placeholder="Contraseña" required>
+                          <div class="input-group">
+                            <input
+                              type="{{ hide ? 'password' : 'text' }}"
+                              class="form-control"
+                              id="password"
+                              name="password"
+                              placeholder="Contraseña"
+                              formControlName="password"
+                              required
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text" (click)="hide = !hide">
+                                <i  class="fas" [ngClass]="hide ? 'fa-eye' : 'fa-eye-slash'">
+                                </i>
+                              </span>
+                            </div>
+                          </div>
                           <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
                           <div *ngIf="password.errors?.['required']">La contraseña es requerida.</div>
                           <div *ngIf="password.errors?.['minlength']">La contraseña debe tener 4 caracteres como mínimo</div>

@@ -14,7 +14,7 @@ import { Register } from 'src/app/shared/interfaces/user.interface';
 
 export class RegisterComponent implements OnInit{
 
-
+  hide = true;
 
   registerForm = this.formBuilder.group({
     email:['eve.holt@reqres.in', [Validators.required, Validators.email ]],

@@ -19,6 +19,7 @@
   border: none ;
   background-color: #F5E8FF ;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
 }
 
 .container .card-body{
@@ -52,4 +53,22 @@
 .container label{
   margin-bottom: 0.1rem ;
   color: #662D91 ;
+}
+
+.input-group-append{
+  display: flex;
+}
+
+.form-control{
+  margin-right: 1px;
+}
+
+.input-group-append{
+  display: flex;
+
+}
+
+.input-group-text{
+  background-color: #FFF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
 }
