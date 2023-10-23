@@ -26,7 +26,8 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult?> Get()
         {
-            return Ok(usuarioService.Get());
+            List<UsuarioDto> result = await usuarioService.Get();
+            return Ok(result);
         }
 
         [HttpPost]
