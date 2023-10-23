@@ -49,11 +49,11 @@ export class RegisterComponent implements OnInit{
 
 
   register() {
-    const formValue = this.registerForm.value as Register;
+    const formValue = this.registerForm.value as any;
     this.authService.register(formValue).subscribe({
       next: (data) => {
         console.log(data);
-        this.route.navigate(['/login']);
+        this.route.navigate(['/ingreso']);
       },
       error: (error: any) => {
         console.error(error);

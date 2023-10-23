@@ -6,6 +6,7 @@ import { Register, RegisterResponse, User, UserResponse } from '../../shared/int
 // import { url } from 'inspector';
 import Swal from 'sweetalert2'
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,28 +15,46 @@ export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   private readonly JWT_TOKEN = 'token';
 
+
+
   constructor(private http:HttpClient, private router: Router) {}
+
 
 
   urlLogin:string="https://reqres.in/api/login"
   urlRegister:string="https://reqres.in/api/register"
 
-  get isLogged(): Observable<boolean> {
+   // marca al usuario como autenticado
+   setAuthenticated(isAuthenticated: boolean) {
+    this.loggedIn.next(isAuthenticated);
+  }
+
+  // comprueba si el usuario está autenticado
+  isAuthenticated(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-  login(authData: User): Observable<UserResponse | void> {
+
+  // get isLogged(): Observable<boolean> {
+  //   return this.loggedIn.asObservable();
+  // }
+
+  login(authData: any): Observable<any | void> {
     return this.http
-      .post<UserResponse>(this.urlLogin, authData)
+      .post<any>(this.urlLogin, authData)
       .pipe(
-        map((res: UserResponse) => {
-          const userResponse = {} as UserResponse;
+        map((res: any) => {
+           const userResponse = {} as any;
           userResponse.token = res.token;
-          if(userResponse.token){
-            this.saveToken(res);
-            this.loggedIn.next(true)
+          if (res.token) {
+            this.setAuthenticated(true); // Marca al usuario como autenticado
 
           }
+          // if(userResponse.token){
+          //   this.saveToken(res);
+          //   this.loggedIn.next(true)
+
+          // }
           return res;
         }),
         catchError((error) => {
@@ -52,12 +71,13 @@ export class AuthService {
       );
   }
 
-  register(registerRequest: Register): Observable<RegisterResponse | void> {
-    return this.http.post<RegisterResponse>(this.urlRegister, registerRequest).pipe(
-      map((res: RegisterResponse) => {
-        if (res.id && res.token) {
-          this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
-        }
+  register(registerRequest: any): Observable<any | void> {
+    return this.http.post<any>(this.urlRegister, registerRequest).pipe(
+      map((res: any) => {
+        // if (res.id && res.token) {
+        //   this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
+        // }
+        this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
         return res;
       }),
       catchError((error) => {
@@ -73,6 +93,7 @@ export class AuthService {
     this.loggedIn.next(false);
     this.cleanAuthInformation();
     this.router.navigate(['/ingreso']);
+    this.setAuthenticated(false);
 
   }
 
