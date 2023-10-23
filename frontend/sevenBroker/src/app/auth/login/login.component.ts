@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    const formValue = this.loginForm.value as User;
+    const formValue = this.loginForm.value as any;
     this.authService.login(formValue).subscribe({
       next: (data) => {
         console.log(data);
