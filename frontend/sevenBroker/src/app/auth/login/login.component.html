@@ -15,9 +15,9 @@
                 placeholder="Email"
                 required
               />
-              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
-                <div *ngIf="email.errors?.['required']">El email es requerido.</div>
-                <div *ngIf="email.errors?.['email']">El email debe tener un formato válido.</div>
+              <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger">
+                <div *ngIf="email?.errors?.['required']">El email es requerido.</div>
+                <div *ngIf="email?.errors?.['email']">El email debe tener un formato válido.</div>
               </div>
             </div>
             <div class="form-group">
