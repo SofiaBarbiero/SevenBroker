@@ -19,11 +19,11 @@ navigateToPortafolio(){
 }
 
 navigateToRegister(){
-  this.router.navigate([('/register')])
+  this.router.navigate([('/registro')])
 }
 
 navigateToIngreso(){
-  this.router.navigate([('/login')])
+  this.router.navigate([('/ingreso')])
 }
 
 }

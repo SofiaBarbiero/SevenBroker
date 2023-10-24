@@ -10,7 +10,7 @@ import { PortafolioModule } from './portafolio/portafolio.module';
 import { HomeModule } from './home/home.module';
 import { CompraModule } from './compra/compra.module';
 import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './services/login/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
 
