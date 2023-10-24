@@ -59,13 +59,6 @@ namespace Backend.Controllers
             return NoContent();
         }
 
-        //[HttpGet("login")]
-        //public async Task<IActionResult?> Login()
-        //{
-        //    List<LoginDto> result = await usuarioService.GetLogin();
-        //    return new OkObjectResult(result);
-        //}
-
 
         [HttpPost("login")]
 
