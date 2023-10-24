@@ -10,19 +10,22 @@ import { Router } from '@angular/router';
 export class AuthService {
   // private loggedIn = new BehaviorSubject<boolean>(false);
   private apiUrl = 'https://localhost:7124/api/usuario';
+  private apiUrlLogin = 'https://localhost:7124/api/usuario/login'
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string): Observable<boolean> {
-    return this.http.get<any[]>(this.apiUrl).pipe(
-      map((data) => {
-        console.log(data)
-        const user = data.find((u) => u.email === email && u.password === password);
-        // this.loggedIn.next(true);
-        return !!user;
-      }),
-      catchError((error) => this.handleError(error))
-    );
+  login(email: string, password: string): Observable<any> {
+    const loginData = {email: email, password: password}
+    return this.http.post<any[]>(this.apiUrlLogin, loginData)
+    // .pipe(
+    //   map((data) => {
+    //     console.log(data)
+    //     const user = data.find((u) => u.email === email && u.password === password);
+    //     // this.loggedIn.next(true);
+    //     return !!user;
+    //   }),
+    //   catchError((error) => this.handleError(error))
+    // );
   }
 
   register(registerRequest: any): Observable<any> {
