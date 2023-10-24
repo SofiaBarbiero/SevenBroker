@@ -21,6 +21,12 @@ namespace Backend.Repository
             return usuario;
         }
 
+        public async Task<UsuarioModel?> GetLogin(string email, string password)
+        {
+            UsuarioModel? usuario = await Usuario.FirstOrDefaultAsync(u => u.Email == email && u.Password == password );
+            return usuario;
+        }
+
         public async Task<List<UsuarioModel>> GetUsuario()
         {
             return await Usuario.ToListAsync();

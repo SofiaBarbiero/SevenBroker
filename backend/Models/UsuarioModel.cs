@@ -29,5 +29,14 @@ namespace Backend.Models
             };
         }
 
+        public LoginDto ToDtoLogin()
+        {
+            return new LoginDto()
+            {               
+                Email = Email,                
+                Password = Password
+            };
+        }
+
     }
 }
