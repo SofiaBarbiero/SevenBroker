@@ -40,9 +40,16 @@ export class LoginComponent implements OnInit {
       const password = this.loginForm.get('password')?.value;
 
       if (email && password) {
-        this.authService.login(email, password).subscribe((success: boolean) => {
-          this.loginSuccess = success;
-          this.router.navigate(['/home']);
+        this.authService.login(email, password).subscribe({
+          next: (success) => {
+            this.loginSuccess = success;
+            this.router.navigate(['/home']);
+          },
+
+          error: (error) => {
+            console.log(error)
+          }
+         
         });
       } else {
         console.error("El correo electrónico y la contraseña deben estar definidos");
