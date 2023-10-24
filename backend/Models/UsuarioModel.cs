@@ -24,6 +24,8 @@ namespace Backend.Models
                 Email = Email,
                 Telefono = Telefono,
                 Dni = Dni,
+                UserName = UserName,
+                Password = Password
             };
         }
 
