@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
       if (email && password) {
         this.authService.login(email, password).subscribe((success: boolean) => {
           this.loginSuccess = success;
+          this.router.navigate(['/home']);
         });
       } else {
         console.error("El correo electrónico y la contraseña deben estar definidos");
