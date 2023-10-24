@@ -1,150 +1,54 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Register, RegisterResponse, User, UserResponse } from '../../shared/interfaces/user.interface';
-// import { url } from 'inspector';
-import Swal from 'sweetalert2'
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-
   private loggedIn = new BehaviorSubject<boolean>(false);
-  private readonly JWT_TOKEN = 'token';
+  private apiUrl = 'https://localhost:7124/api/usuario';
 
+  constructor(private http: HttpClient, private router: Router) {}
 
-
-  constructor(private http:HttpClient, private router: Router) {}
-
-
-
-  urlLogin:string="https://reqres.in/api/login"
-  urlRegister:string="https://reqres.in/api/register"
-
-   // marca al usuario como autenticado
-   setAuthenticated(isAuthenticated: boolean) {
-    this.loggedIn.next(isAuthenticated);
+  login(email: string, password: string): Observable<boolean> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      map((data) => {
+        const user = data.find((u) => u.email === email && u.password === password);
+        this.loggedIn.next(!!user);
+        return !!user;
+      }),
+      catchError((error) => this.handleError(error))
+    );
   }
 
-  // comprueba si el usuario está autenticado
-  isAuthenticated(): Observable<boolean> {
-    return this.loggedIn.asObservable();
-  }
-
-
-  // get isLogged(): Observable<boolean> {
-  //   return this.loggedIn.asObservable();
-  // }
-
-  login(authData: any): Observable<any | void> {
-    return this.http
-      .post<any>(this.urlLogin, authData)
-      .pipe(
-        map((res: any) => {
-           const userResponse = {} as any;
-          userResponse.token = res.token;
-          if (res.token) {
-            this.setAuthenticated(true); // Marca al usuario como autenticado
-
-          }
-          // if(userResponse.token){
-          //   this.saveToken(res);
-          //   this.loggedIn.next(true)
-
-          // }
-          return res;
-        }),
-        catchError((error) => {
-          if (error.status === 400) {
-            Swal.fire({
-              title: 'Credenciales incorrectas!',
-              text: 'Verifique su correo y contraseña.',
-              icon: 'warning',
-              confirmButtonText: 'Aceptar'
-            })
-          }
-          return this.handleError(error);
-        })
-      );
-  }
-
-  register(registerRequest: any): Observable<any | void> {
-    return this.http.post<any>(this.urlRegister, registerRequest).pipe(
-      map((res: any) => {
-        // if (res.id && res.token) {
-        //   this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
-        // }
+  register(registerRequest: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, registerRequest).pipe(
+      map((res) => {
         this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
         return res;
       }),
-      catchError((error) => {
-        if (error.status === 400) {
-          this.showErrorMessage('Error en el registro', 'Por favor, verifique los datos.');
-        }
-        return this.handleError(error);
-      })
+      catchError((error) => this.handleError(error))
     );
   }
 
   logout() {
     this.loggedIn.next(false);
-    this.cleanAuthInformation();
     this.router.navigate(['/ingreso']);
-    this.setAuthenticated(false);
-
   }
-
-  cleanAuthInformation() {
-    this.clearAuthData();
-  }
-
-  private clearAuthData() {
-    localStorage.removeItem(this.JWT_TOKEN);
-
-  }
-
-  saveToken(userResponse: UserResponse) {
-    localStorage.setItem(this.JWT_TOKEN, userResponse.token);
-  }
-
 
   private showSuccessMessage(title: string, message: string) {
-    Swal.fire({
-      title: title,
-      text: message,
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    });
+    // Implementación de mensajes de éxito
   }
 
-
-  private showErrorMessage(title: string, message: string) {
-    Swal.fire({
-      title: title,
-      text: message,
-      icon: 'error',
-      confirmButtonText: 'Aceptar',
-    });
-  }
-
-
-
-
-  private handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0) {
-      console.error('Se ha producio un error ', error.error);
+      console.error('Se ha producido un error ', error.error);
     } else {
-      console.error(
-        'Backend retornó el código de estado ',
-        error.status,
-        error.error
-      );
+      console.error('Backend retornó el código de estado ', error.status, error.error);
     }
-    return throwError(
-      () => new Error('Algo falló. Por favor intente nuevamente.')
-    );
+    return throwError(() => new Error('Algo falló. Por favor, inténtelo nuevamente.'));
   }
 }
