@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/services/login/auth.service';
 import {NavigationService} from 'src/app/services/navigation/navigation.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,7 @@ import {NavigationService} from 'src/app/services/navigation/navigation.service'
 })
 export class HeaderComponent {
 
-  loginOn:boolean=false;
-
-constructor(private NavigationService : NavigationService){}
+constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router){}
   navigateHome(){
 this.NavigationService.navigateToHome()
 }
@@ -26,4 +26,10 @@ navigateRegister(){
 navigateIngreso(){
   this.NavigationService.navigateToIngreso()
 }
+
+
+  logout() {
+    this.authService.isLogged = false;
+    this.router.navigate(['/ingreso']);
+  }
 }

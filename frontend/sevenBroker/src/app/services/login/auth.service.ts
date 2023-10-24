@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  // private loggedIn = new BehaviorSubject<boolean>(false);
+  isLogged = false;
   private apiUrl = 'https://localhost:7124/api/usuario';
   private apiUrlLogin = 'https://localhost:7124/api/usuario/login'
 
@@ -16,16 +16,14 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const loginData = {email: email, password: password}
-    return this.http.post<any[]>(this.apiUrlLogin, loginData)
-    // .pipe(
-    //   map((data) => {
-    //     console.log(data)
-    //     const user = data.find((u) => u.email === email && u.password === password);
-    //     // this.loggedIn.next(true);
-    //     return !!user;
-    //   }),
-    //   catchError((error) => this.handleError(error))
-    // );
+    return this.http.post<any[]>(this.apiUrlLogin, loginData).pipe(
+      map((res) => {
+        this.isLogged = true;
+        this.router.navigate(['/home']);
+        return res;
+      })
+    );
+
   }
 
   register(registerRequest: any): Observable<any> {
@@ -38,10 +36,7 @@ export class AuthService {
     );
   }
 
-  logout() {
-    // this.loggedIn.next(false);
-    this.router.navigate(['/ingreso']);
-  }
+
 
   private showSuccessMessage(title: string, message: string) {
 
