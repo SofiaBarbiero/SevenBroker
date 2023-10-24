@@ -1,7 +1,9 @@
 ﻿using Backend.Dtos;
 using Backend.Models;
+using Backend.Repository;
 using Backend.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -27,11 +29,9 @@ namespace Backend.Controllers
         public async Task<IActionResult> Get()
         {
             List<UsuarioDto> result = await usuarioService.Get();
-<<<<<<< HEAD
+
             return new OkObjectResult(result);
-=======
-            return Ok(result);
->>>>>>> 3d28d07db890f8e03684da1ada69e42495ee32f0
+
         }
 
         [HttpPost]
@@ -58,5 +58,15 @@ namespace Backend.Controllers
             usuarioService.Delete(id);
             return NoContent();
         }
+
+
+        [HttpPost("login")]
+
+        public async Task<IActionResult> PostLogin(LoginDto loginDto)
+        {
+            LoginDto result = await usuarioService.GetLogin(loginDto.Email, loginDto.Password);
+            return result != null ? Ok(result) : NotFound();
+        }
+
     }
 }

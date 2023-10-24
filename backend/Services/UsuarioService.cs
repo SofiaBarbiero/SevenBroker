@@ -25,6 +25,12 @@ namespace Backend.Services
             return result.Select(x => x.ToDto()).ToList();
         }
 
+        public async Task<LoginDto> GetLogin(string email, string password)
+        {
+            UsuarioModel result = await usuarioContext.GetLogin(email, password);
+            return result.ToDtoLogin();
+        }
+
         public async Task<UsuarioDto> Create(NewUsuarioDto usuarioDto)
         {
             UsuarioModel usuario = new UsuarioModel()
