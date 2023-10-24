@@ -47,7 +47,8 @@
           <td>{{ cotizacion.maximo }}</td>
           <td>{{ cotizacion.ultimoCierre }}</td>
           <td>{{ cotizacion.volumen }}</td>
-          <td><button class="button__buy">Comprar</button></td>
+          <td><button (click)="comprarAccion(cotizacion.simbolo, cotizacion.puntas.precioVenta)"
+            >Comprar</button></td>
         </tr>
       </tbody>
     </table>

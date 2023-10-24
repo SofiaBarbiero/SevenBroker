@@ -21,6 +21,14 @@ export class TablaComponent {
     this.cargar_cotizaciones();
   }
 
+  simboloAccion: any = {}; 
+  precioAccion: any = {};
+
+  comprarAccion(simbolo: any, precio: any) {
+    this.simboloAccion = simbolo;
+    this.precioAccion = precio;
+  }
+
   cargar_cotizaciones(){
     this.json.obtenerTitulos().subscribe({
       next: (listaCotizaciones) => (
