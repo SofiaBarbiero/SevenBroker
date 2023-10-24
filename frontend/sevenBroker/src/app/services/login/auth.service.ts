@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  private apiUrl = 'https://localhost:7124/api/usuario';
+  // private loggedIn = new BehaviorSubject<boolean>(false);
+  private apiUrl = 'https://localhost:5124/api/usuario';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -17,7 +17,7 @@ export class AuthService {
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((data) => {
         const user = data.find((u) => u.email === email && u.password === password);
-        this.loggedIn.next(!!user);
+        // this.loggedIn.next(true);
         return !!user;
       }),
       catchError((error) => this.handleError(error))
@@ -35,12 +35,12 @@ export class AuthService {
   }
 
   logout() {
-    this.loggedIn.next(false);
+    // this.loggedIn.next(false);
     this.router.navigate(['/ingreso']);
   }
 
   private showSuccessMessage(title: string, message: string) {
-    // Implementación de mensajes de éxito
+
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
