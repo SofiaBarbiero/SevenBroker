@@ -45,13 +45,13 @@
               >Cotizaciones</a
             >
           </li>
-          <li *ngIf="!authService.isLogged"(click)="navigateIngreso()" class="nav-item">
+          <li *ngIf="!isLogged" (click)="navigateIngreso()" class="nav-item">
             <a  class="nav-link" href="/ingreso"
               >Iniciar Sesión</a
             >
           </li>
 
-          <li *ngIf="authService.isLogged" (click)="logout()" class="nav-item">
+          <li *ngIf="isLogged" (click)="logout()" class="nav-item">
             <a class="nav-link" >Cerrar Sesión</a
             >
           </li>

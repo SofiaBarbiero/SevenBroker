@@ -16,13 +16,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const loginData = {email: email, password: password}
-    return this.http.post<any[]>(this.apiUrlLogin, loginData).pipe(
-      map((res) => {
-        this.isLogged = true;
-        this.router.navigate(['/home']);
-        return res;
-      })
-    );
+    return this.http.post<any[]>(this.apiUrlLogin, loginData)
 
   }
 
@@ -36,7 +30,9 @@ export class AuthService {
     );
   }
 
-
+  isAuthenticated(): boolean {
+    return this.isLogged;
+  }
 
   private showSuccessMessage(title: string, message: string) {
 

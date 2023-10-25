@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/login/auth.service';
 import {NavigationService} from 'src/app/services/navigation/navigation.service'
 import { Router } from '@angular/router';
@@ -8,10 +8,20 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  isLogged: boolean = false;
+
+
 
 constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router){}
-  navigateHome(){
+
+ngOnInit() {
+  this.isLogged = this.authService.isAuthenticated();
+}
+
+
+navigateHome(){
 this.NavigationService.navigateToHome()
 }
 navigateCotizaciones(){
@@ -28,8 +38,8 @@ navigateIngreso(){
 }
 
 
-  logout() {
-    this.authService.isLogged = false;
-    this.router.navigate(['/ingreso']);
-  }
+logout() {
+  this.isLogged = false;
+  this.router.navigate(['/ingreso']);
+}
 }
