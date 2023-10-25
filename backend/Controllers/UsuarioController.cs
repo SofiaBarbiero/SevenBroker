@@ -18,10 +18,10 @@ namespace Backend.Controllers
             this.usuarioService = usuarioService;
         }
 
-        [HttpGet("{email}")]
-        public async Task<IActionResult?> Get(string email)
+        [HttpGet("{id}")]
+        public async Task<IActionResult?> Get(int id)
         {
-            UsuarioDto usuario = await usuarioService.Get(email);   
+            UsuarioDto usuario = await usuarioService.Get(id);
             return usuario!= null ? Ok(usuario) : NotFound();
         }
 
