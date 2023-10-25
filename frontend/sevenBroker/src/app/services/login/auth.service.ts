@@ -6,9 +6,17 @@ import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
+
 })
 export class AuthService {
-  isLogged = false;
+
+  private loggedIn = new BehaviorSubject<boolean>(false);
+
+  get isLogged(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+
+
   private apiUrl = 'https://localhost:7124/api/usuario';
   private apiUrlLogin = 'https://localhost:7124/api/usuario/login'
 
@@ -16,6 +24,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const loginData = {email: email, password: password}
+    this.loggedIn.next(true)
     return this.http.post<any[]>(this.apiUrlLogin, loginData)
 
   }
@@ -30,11 +39,13 @@ export class AuthService {
     );
   }
 
-  isAuthenticated(): boolean {
-    return this.isLogged;
+  private showSuccessMessage(title: string, message: string) {
+
   }
 
-  private showSuccessMessage(title: string, message: string) {
+  logout() {
+    this.loggedIn.next(false);
+    this.router.navigate(['/ingreso']);
 
   }
 
