@@ -13,11 +13,10 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean = false;
 
 
-
 constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router){}
 
 ngOnInit() {
-  this.isLogged = this.authService.isAuthenticated();
+  this.authService.isLogged.subscribe((res) => (this.isLogged = res));
 }
 
 
@@ -38,8 +37,7 @@ navigateIngreso(){
 }
 
 
-logout() {
-  this.isLogged = false;
-  this.router.navigate(['/ingreso']);
+onLogout(): void {
+  this.authService.logout();
 }
 }
