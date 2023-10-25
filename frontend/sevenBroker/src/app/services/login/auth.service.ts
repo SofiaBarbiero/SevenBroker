@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,28 +11,26 @@ import { Router } from '@angular/router';
 export class AuthService {
   // private loggedIn = new BehaviorSubject<boolean>(false);
   private apiUrl = 'https://localhost:7124/api/usuario';
-  private apiUrlLogin = 'https://localhost:7124/api/usuario/login'
+  private apiUrlLogin = 'https://localhost:7124/api/usuario/login';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
 
   login(email: string, password: string): Observable<any> {
-    const loginData = {email: email, password: password}
-    return this.http.post<any[]>(this.apiUrlLogin, loginData)
-    // .pipe(
-    //   map((data) => {
-    //     console.log(data)
-    //     const user = data.find((u) => u.email === email && u.password === password);
-    //     // this.loggedIn.next(true);
-    //     return !!user;
-    //   }),
-    //   catchError((error) => this.handleError(error))
-    // );
+    const loginData = { email: email, password: password };
+    return this.http.post<any[]>(this.apiUrlLogin, loginData);
   }
 
   register(registerRequest: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, registerRequest).pipe(
       map((res) => {
-        this.showSuccessMessage('Registro exitoso', 'Ahora puede iniciar sesión.');
+        this.showSuccessMessage(
+          'Registro exitoso',
+          'Ahora puede iniciar sesión.'
+        );
         return res;
       }),
       catchError((error) => this.handleError(error))
@@ -40,19 +39,29 @@ export class AuthService {
 
   logout() {
     // this.loggedIn.next(false);
+
+    this.cookieService.delete('usuario');
     this.router.navigate(['/ingreso']);
   }
 
-  private showSuccessMessage(title: string, message: string) {
-
+  usuarioData(email: string): Observable<any> {
+    return this.http.get(this.apiUrl + `/${email}`);
   }
+
+  private showSuccessMessage(title: string, message: string) {}
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     if (error.status === 0) {
       console.error('Se ha producido un error ', error.error);
     } else {
-      console.error('Backend retornó el código de estado ', error.status, error.error);
+      console.error(
+        'Backend retornó el código de estado ',
+        error.status,
+        error.error
+      );
     }
-    return throwError(() => new Error('Algo falló. Por favor, inténtelo nuevamente.'));
+    return throwError(
+      () => new Error('Algo falló. Por favor, inténtelo nuevamente.')
+    );
   }
 }

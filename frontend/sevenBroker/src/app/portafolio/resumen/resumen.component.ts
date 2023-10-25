@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CompraService } from 'src/app/services/compra/compra.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
-  styleUrls: ['./resumen.component.css']
+  styleUrls: ['./resumen.component.css'],
 })
 export class ResumenComponent {
-
   listaCompras: any[] = [];
 
   listaNombresAcciones: string[] = [];
@@ -21,40 +21,50 @@ export class ResumenComponent {
 
   activosIndividuales: any[] = [];
 
-  cuentaActiva : any = {};
+  cuentaActiva: any = {};
 
-  Usuario : any = {};
+  stringUsuario: string = '';
+
+  Usuario: any = {};
 
   totalValorizado: number = 0;
 
+  constructor(
+    private json: JsonService,
+    private cuenta: CuentaService,
+    private compra: CompraService,
+    private cookieService: CookieService
+  ) {}
 
-  constructor(private json : JsonService, private cuenta : CuentaService, private compra : CompraService){}
-
-  totalEnCompras(compras: any){
-
+  totalEnCompras(compras: any) {
     let total: number = 0;
 
     compras.forEach((compraUnica: any) => {
-      total += compraUnica.precioCompra; 
-    })
+      total += compraUnica.precioCompra;
+    });
 
     return total;
   }
-  
 
   ngOnInit(): void {
+    this.stringUsuario = this.cookieService.get('usuario');
 
+    if (this.stringUsuario !== '') {
+      this.Usuario = JSON.parse(this.stringUsuario);
+    } else {
+      this.Usuario = null;
+    }
 
-    
     //Obtenemos la cuenta activa
     this.cuenta.get().subscribe({
       next: (result) => {
-
-        this.cuentaActiva = result.find((cuentaUnica : any) => cuentaUnica.usuarioId === this.Usuario.id);
+        this.cuentaActiva = result.find(
+          (cuentaUnica: any) => cuentaUnica.usuarioId === this.Usuario.id
+        );
       },
       error: (error) => {
         console.error(error);
-      }
+      },
     });
 
     //Obtenemos la lista de compras del usuario especifico
@@ -63,43 +73,45 @@ export class ResumenComponent {
         this.listaCompras = result;
 
         //Separamos las compras del usuario actual
-        this.listaComprasUsuario = this.listaCompras.filter((compraUnica : any) => {
-          if(compraUnica.cuentaId === this.cuentaActiva.id){
-            return compraUnica;
+        this.listaComprasUsuario = this.listaCompras.filter(
+          (compraUnica: any) => {
+            if (compraUnica.cuentaId === this.cuentaActiva.id) {
+              return compraUnica;
+            }
           }
-        });
+        );
 
         //Guardamos los nombres de las acciones compradas
-        this.listaComprasUsuario.forEach((compraUnica : any) => {
-          
-          if(!this.listaNombresAcciones.includes(compraUnica.simbolo)){
+        this.listaComprasUsuario.forEach((compraUnica: any) => {
+          if (!this.listaNombresAcciones.includes(compraUnica.simbolo)) {
             this.listaNombresAcciones.push(compraUnica.simbolo);
           }
         });
 
         //Creo la lista de activosIndividuales y le doy formato al objeto
-        this.listaNombresAcciones.forEach((nombre : any) => {1
+        this.listaNombresAcciones.forEach((nombre: any) => {
+          1;
           this.activosIndividuales.push({
             simbolo: nombre,
             precio: 0,
-          })
+          });
         });
 
         //Calculamos el total de gato segun la accion
-        this.activosIndividuales.forEach((activo : any) => {
-          this.listaComprasUsuario.forEach((compraUnica : any) => {
-            if(activo.simbolo === compraUnica.simbolo){
+        this.activosIndividuales.forEach((activo: any) => {
+          this.listaComprasUsuario.forEach((compraUnica: any) => {
+            if (activo.simbolo === compraUnica.simbolo) {
               activo.precio += compraUnica.precioCompra;
             }
           });
         });
 
         //Aprovechamos a calcular el total valorizado gracias a las compras
-        this.totalValorizado = this.totalEnCompras(this.listaComprasUsuario)
+        this.totalValorizado = this.totalEnCompras(this.listaComprasUsuario);
       },
       error: (error) => {
         console.log(error);
-      }
+      },
     });
   }
 }

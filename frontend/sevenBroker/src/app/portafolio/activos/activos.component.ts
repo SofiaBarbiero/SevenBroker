@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CompraService } from 'src/app/services/compra/compra.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-activos',
@@ -25,6 +26,8 @@ export class ActivosComponent {
 
   cuentaActiva: any = {};
 
+  stringUsuario: string = '';
+
   Usuario: any = {};
 
   totalDelMes: number = 0;
@@ -36,7 +39,8 @@ export class ActivosComponent {
   constructor(
     private json: JsonService,
     private cuenta: CuentaService,
-    private compra: CompraService
+    private compra: CompraService,
+    private cookieService: CookieService
   ) {}
 
   totalEsteMes() {
@@ -50,6 +54,14 @@ export class ActivosComponent {
   }
 
   ngOnInit(): void {
+    this.stringUsuario = this.cookieService.get('usuario');
+
+    if (this.stringUsuario !== '') {
+      this.Usuario = JSON.parse(this.stringUsuario);
+    } else {
+      this.Usuario = null;
+    }
+
     //Obtenemos la cuenta activa
     this.cuenta.get().subscribe({
       next: (result) => {

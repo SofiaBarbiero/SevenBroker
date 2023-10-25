@@ -3,15 +3,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/login/auth.service';
 import { Register } from 'src/app/shared/interfaces/user.interface';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
-
 export class RegisterComponent implements OnInit {
-
   hide = true;
 
   registerForm = this.formBuilder.group({
@@ -27,7 +26,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private route: Router
+    private route: Router,
+    private cuentaService: CuentaService
   ) {}
 
   ngOnInit(): void {}
@@ -59,6 +59,32 @@ export class RegisterComponent implements OnInit {
     const formValue = this.registerForm.value as Register;
     this.authService.register(formValue).subscribe({
       next: (data: any) => {
+        //Recibimos los datos del usuario creado
+        this.authService.usuarioData(formValue.email).subscribe({
+          next: (result) => {
+            //Creamos el objeto para crear la cuenta
+            const cuentaObjeto = {
+              saldo: 20000,
+              usuarioId: result.id,
+            };
+
+            //Enviamos el objeto al servicio para que cree la cuenta
+            this.cuentaService.post(cuentaObjeto).subscribe({
+              next: (result) => {
+                //Mostramos la respuesta si es correcto
+                console.log(result);
+              },
+              error: (error) => {
+                //Mostramos la respuesta si es hay error al crear la cuenta
+                console.log(error);
+              },
+            });
+          },
+          error: (error) => {
+            //Mostramos la respuesta si es hay error al crear el usuario
+            console.log(error);
+          },
+        });
         this.route.navigate(['/ingreso']);
       },
       error: (error: any) => {
@@ -66,15 +92,13 @@ export class RegisterComponent implements OnInit {
 
         if (error.status === 400) {
           console.error('Error: No se pudo completar el registro.');
-
         } else {
           console.error('Error desconocido. Por favor, inténtelo nuevamente.');
-
         }
       },
       complete: () => {
         console.log('complete');
-      }
+      },
     });
   }
 }
