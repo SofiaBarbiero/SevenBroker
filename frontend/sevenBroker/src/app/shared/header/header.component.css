@@ -14,6 +14,17 @@
     color: white;
 }
 
+.carrousel-button-left {
+    color: #fff;
+    border-color: #662D91;
+    border-width: 1.4px;
+    padding: 9px 29px;
+    background-color: #662D91;
+    border-radius: 12px;
+    font-size: 1rem;
+    justify-content: end;
+  }
+
 footer{ 
     background-color: #7f4ca5;
     color: white;
