@@ -13,9 +13,9 @@ namespace Backend.Services
             this.usuarioContext = usuarioContext;
         }
 
-        public async Task<UsuarioDto?> Get(int id)
+        public async Task<UsuarioDto?> Get(string email)
         {
-            UsuarioModel? result = await usuarioContext.GetUsuario(id);
+            UsuarioModel? result = await usuarioContext.GetUsuario(email);
             return result.ToDto();
         }
 
@@ -50,7 +50,7 @@ namespace Backend.Services
 
         public async Task<UsuarioDto> Update(UsuarioDto usuarioDto)
         {
-            var usuario = await usuarioContext.GetUsuario(usuarioDto.Id);
+            var usuario = await usuarioContext.GetUsuario(usuarioDto.Email);
             if (usuario == null)
             {
                 return null;

@@ -34,7 +34,7 @@ namespace Backend.Controllers
         public async Task<IActionResult> Create(NewCuentaDto cuentaDto)
         {
             CuentaDto cuenta = await _cuentaService.Create(cuentaDto);
-            return CreatedAtAction(nameof(Get), new {Id =  cuenta.Id}, cuenta);
+            return Ok(cuenta);
         }
 
         [HttpPut("{id}")]
