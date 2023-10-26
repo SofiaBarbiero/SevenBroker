@@ -28,7 +28,6 @@ namespace Backend.Services
         {
             CuentaModel newCuenta = new CuentaModel()
             {
-                Id = null,
                 Saldo = cuentaDto.Saldo,
                 UsuarioId = cuentaDto.UsuarioId,
             };

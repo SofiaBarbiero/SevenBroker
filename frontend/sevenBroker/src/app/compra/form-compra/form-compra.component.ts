@@ -59,7 +59,6 @@ export class FormCompraComponent implements OnInit{
         console.log(err);
       }
     })
-    console.log(this.datosCuenta)
   }
 
   saveData(){
@@ -70,16 +69,17 @@ export class FormCompraComponent implements OnInit{
     this.objetoCompra.simbolo = this.objetoAccion.simbolo
     this.objetoCompra.cuentaId = this.datosCuenta.id
 
-
     this.compraService.post(this.objetoCompra).subscribe({
       next: (res) => {
         console.log(res);
-
-        alert("hola");
 
         this.navigation.navigateToPortafolio();
       },
       error: (err) => console.log(err) 
     })
+  }
+
+  enviarCantidad(evento: any){
+    this.datosCompra.enviarCantidad(evento.target.value)
   }
 }

@@ -1,11 +1,12 @@
 <h2 class="card-title text-center">Compra tus acciones</h2>
 <form [formGroup]="formCompra" (ngSubmit)="saveData" action="#" method="post">
   <p [textContent]="'Acción: ' + objetoAccion.simbolo"></p>
-  <p [textContent]="'Precio unitario: $' + objetoAccion.precioCompra"></p> 
+  <p [textContent]="'Precio unitario: ' + (objetoAccion.precioCompra | currency: 'ARS':'symbol')"></p> 
  
   <div class="form-group">
     <label for="cantidad">Cantidad</label>
-    <input formControlName="cantidad" type="number" formControlName="cantidad" name="cantidad_accion" class="form-control" placeholder="Seleccione la cantidad que desea" required>
+    <input formControlName="cantidad" type="number" formControlName="cantidad" name="cantidad_accion" class="form-control"
+     placeholder="Seleccione la cantidad que desea" required (input)="enviarCantidad($event)">
   </div>
  
   <div class="text-center">

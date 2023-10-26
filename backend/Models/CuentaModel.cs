@@ -15,6 +15,7 @@ namespace Backend.Models
             {
                 Id = Id ?? throw new Exception("El id no puede ser null"),
                 Saldo = Saldo,
+                UsuarioId = UsuarioId
             };
         }
     }

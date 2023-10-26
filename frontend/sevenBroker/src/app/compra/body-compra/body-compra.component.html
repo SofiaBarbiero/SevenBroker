@@ -10,5 +10,5 @@
     </div>
   <div>
   <span class="resumen-label">Total compra:</span>
-  <span class="resumen-item" [textContent]="totalCompra"></span>
+  <span class="resumen-item" [textContent]="totalCompra | currency: 'ARS':'symbol'"></span>
 </div>
