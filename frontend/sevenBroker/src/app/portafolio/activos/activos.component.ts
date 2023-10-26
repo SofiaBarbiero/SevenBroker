@@ -114,29 +114,35 @@ export class ActivosComponent {
         this.movimientosDelMes.forEach((movimiento: any) => {
           this.totalDelMes += movimiento.precio;
         });
+
+        this.json.obtenerTitulos().subscribe({
+          next: (titulosObtenidos) => {
+            //Recibo lista de todas las acciones
+            this.listaTitulos = titulosObtenidos;
+            console.log(this.listaNombresAcciones);
+            
+    
+            //Filtro activos en base a los activos comprados
+            this.listaNombresAcciones.forEach((accion: any) => {
+              this.listaTitulos.forEach((titulo: any) => {
+                console.log(accion);
+                
+                if (titulo.simbolo === accion) {
+                  this.activos.push(titulo);
+                }
+              });
+            });
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
       },
       error: (error) => {
         console.log(error);
       },
     });
 
-    this.json.obtenerTitulos().subscribe({
-      next: (titulosObtenidos) => {
-        //Recibo lista de todas las acciones
-        this.listaTitulos = titulosObtenidos;
-
-        //Filtro activos en base a los activos comprados
-        this.listaNombresAcciones.forEach((accion: any) => {
-          this.listaTitulos.forEach((titulo: any) => {
-            if (titulo.simbolo === accion.simbolo) {
-              this.activos.push(titulo);
-            }
-          });
-        });
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+    
   }
 }
