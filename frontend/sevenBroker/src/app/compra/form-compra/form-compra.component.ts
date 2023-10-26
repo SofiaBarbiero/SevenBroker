@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatosCompraService } from 'src/app/services/compra/datos-compra.service';
+import { CantidadCompra } from 'src/app/shared/interfaces/compra.interface';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { CookieService } from 'ngx-cookie-service';
+import { CompraService } from 'src/app/services/compra/compra.service';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-form-compra',
@@ -8,19 +14,67 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 
 export class FormCompraComponent implements OnInit{  
-  constructor() {}
+  objetoAccion: any = {}
+  objetoCompra: any = {
+    fecha: new Date(),
+    precioCompra: 0,
+    cantidadCompra: 0,
+    simbolo: "",
+    cuentaId: 0
+  }
+  datosUsuario: any = {}
+  datosCuenta: any = {}
+
+  constructor(private datosCompra:DatosCompraService, private cookies:CookieService, private cuentaService:CuentaService, private compraService: CompraService, private navigation: NavigationService) {}
 
   formCompra = new FormGroup({
-    name: new FormControl('', Validators.required),
-    cantidad: new FormControl('', Validators.required),
-    metodoPago: new FormControl('', Validators.required),
+    cantidad: new FormControl(0, Validators.required),
   }); 
 
+  get nombre() {
+    return this.formCompra.controls.cantidad;
+  }
+
   ngOnInit(): void {
-    
+    this.datosCompra.objetoDatos.subscribe({
+      next: (response) => {
+        this.objetoAccion = response;
+      },
+      error: (err) => {
+        console.log(err);
+      } 
+    })  
+
+    this.datosUsuario = JSON.parse(this.cookies.get("usuario"));
+
+    this.cuentaService.get().subscribe({
+      next: (response) => {
+        const res = response
+        this.datosCuenta = res.find((result: any) => result.usuarioId === this.datosUsuario.id)
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
   saveData(){
-    console.log(this.formCompra.value);
+    const formValue = this.formCompra.value as CantidadCompra;
+
+    this.objetoCompra.cantidad = formValue.cantidad 
+    this.objetoAccion.precioCompra = formValue.cantidad * this.objetoAccion.precioCompra
+    this.objetoAccion.simbolo = this.objetoAccion.simbolo
+    this.objetoAccion.cuentaId = this.datosCuenta.id
+
+    this.compraService.post(this.objetoAccion).subscribe({
+      next: (res) => {
+        console.log(res);
+
+        alert("hola");
+
+        this.navigation.navigateToCotizaciones();
+      },
+      error: (err) => console.log(err) 
+    })
   }
 }
