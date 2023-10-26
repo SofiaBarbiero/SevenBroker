@@ -1,34 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { JsonService } from 'src/app/services/json/json.service';
-
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-cabecera',
   templateUrl: './cabecera.component.html',
-  styleUrls: ['./cabecera.component.css']
+  styleUrls: ['./cabecera.component.css'],
 })
 export class CabeceraComponent {
+  usuario: any = {};
 
-  
-  usuario: string = "";
-
-  constructor(private json: JsonService){
-
-  }
+  constructor(private cookie: CookieService) {}
 
   ngOnInit(): void {
-
-    this.json.obtenerDatosUsuario().subscribe({
-      next: (datosObtenidos) => {
-        this.usuario = datosObtenidos.nombre;
-      },
-      error: (error) => {
-        console.error(error);
-      }
-    })
-    
+    this.usuario = JSON.parse(this.cookie.get('usuario'));
   }
-  
-
-
-
 }
