@@ -1,24 +1,16 @@
 <h2 class="card-title text-center">Compra tus acciones</h2>
 <form [formGroup]="formCompra" (ngSubmit)="saveData" action="#" method="post">
-  <div class="form-group">
-    <label for="name">Nombre:</label>
-    <input formControlName="name" formControlName="name" type="text" name="nombre_accion" class="form-control" [(ngModel)]="objetoAccion.simbolo" required>
-    <p class="precio-actual">Precio actual de la unidad: </p>
-  </div>
+  <p [textContent]="'Acción: ' + objetoAccion.simbolo"></p>
+  <p [textContent]="'Precio unitario: ' + (objetoAccion.precioCompra | currency: 'ARS':'symbol')"></p> 
+ 
   <div class="form-group">
     <label for="cantidad">Cantidad</label>
-    <input formControlName="cantidad" type="number" formControlName="cantidad" name="cantidad_accion" class="form-control" placeholder="Seleccione la cantidad que desea" required>
+    <input formControlName="cantidad" type="number" formControlName="cantidad" name="cantidad_accion" class="form-control"
+     placeholder="Seleccione la cantidad que desea" required (input)="enviarCantidad($event)">
   </div>
-  <div class="form-group">
-    <label for="metodoPago" class="select-label" required>Método de Pago</label>  
-    <select formControlName="metodoPago" class="form-control">
-      <option value="Dinero en Cuenta">Dinero en Cuenta</option>
-      <option value="Tarjeta de Débito o crédito">Tarjeta de Credito o Debito</option>
-      <option value="PayPal">PayPal</option>
-    </select>         
-  </div>
+ 
   <div class="text-center">
-    <button type="submit" class="btn">Confirmar Compra</button>
+    <button type="submit" class="btn" (click)="saveData()">Confirmar Compra</button>
   </div>
 </form>
 

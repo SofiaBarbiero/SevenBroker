@@ -35,7 +35,7 @@ export class TablaComponent {
 
   comprarAccion(simboloAccion: any, precioAccion: any) {
     this.objetoAccion = {
-      símbolo: simboloAccion,
+      simbolo: simboloAccion,
       precioCompra: precioAccion,
     };
 

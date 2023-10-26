@@ -30,6 +30,7 @@ export class AuthService {
   login(email: string, password: string): Observable<any> {
     const loginData = {email: email, password: password}
     this.loggedIn.next(true)
+    this.cookieService.set("isLogged", JSON.stringify(true))
     return this.http.post<any[]>(this.apiUrlLogin, loginData)
   }
 
@@ -52,8 +53,9 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next(false);
+    this.cookieService.delete("isLogged");
+    this.cookieService.delete("usuario");
     this.router.navigate(['/ingreso']);
-
   }
 
   private showSuccessMessage(title: string, message: string) {}
