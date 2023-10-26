@@ -6,7 +6,10 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./cabecera.component.css'],
 })
 export class CabeceraComponent {
-  usuario: any = {};
+  usuario: any = {
+    nombre: '',
+    apellido: '',
+  };
 
   constructor(private cookie: CookieService) {}
 
