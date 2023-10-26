@@ -27,13 +27,31 @@ export class TablaComponent {
 
   cargar_cotizaciones() {
     this.json.obtenerTitulos().subscribe({
-      next: (listaCotizaciones) => (this.listaCotizaciones = listaCotizaciones),
+      next: (listaCotizaciones) => {
+        this.listaCotizaciones = listaCotizaciones;
+
+        this.listaCotizaciones.forEach((cotizacion: any) => {
+          if (!cotizacion.puntas) {
+            cotizacion.puntas = {
+              cantidadCompra: 0,
+              cantidadVenta: 0,
+              precioCompra: 0,
+              precioVenta: 0,
+            };
+          }
+        });
+      },
       error: (error) => console.error(error),
       complete: () => console.info('cargó las cotizaciones correctamente'),
     });
   }
 
   comprarAccion(simboloAccion: any, precioAccion: any) {
+    if (precioAccion === 0) {
+      alert('Esta accion no se encuentra disponible');
+      return;
+    }
+
     this.objetoAccion = {
       simbolo: simboloAccion,
       precioCompra: precioAccion,

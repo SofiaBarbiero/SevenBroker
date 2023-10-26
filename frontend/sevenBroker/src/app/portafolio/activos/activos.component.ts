@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CompraService } from 'src/app/services/compra/compra.service';
@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class ActivosComponent {
   listaTitulos: any = {};
 
-  movimientosDelMes: any = {};
+  movimientosDelMes: any[] = [];
 
   listaCompras: any = {};
 
@@ -21,6 +21,8 @@ export class ActivosComponent {
   activosDelUsuario: any = {};
 
   listaNombresAcciones: string[] = [];
+
+  ultimosMovimientosDelMes: any[] = [];
 
   activos: any[] = [];
 
@@ -40,7 +42,8 @@ export class ActivosComponent {
     private json: JsonService,
     private cuenta: CuentaService,
     private compra: CompraService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   totalEsteMes() {
@@ -107,26 +110,47 @@ export class ActivosComponent {
           }
         );
 
+        //Separamos las ultimas diez compras para no saturar la pantalla
+        this.ultimosMovimientosDelMes = this.movimientosDelMes.filter(
+          (compraUnica: any) => {
+            if (this.movimientosDelMes.indexOf(compraUnica) < 10) {
+              return compraUnica;
+            }
+          }
+        );
+
         //Cantidad de movimientos este mes
         this.cantidadDelMes = this.movimientosDelMes.length;
 
         //Calculamos el total gastado este mes
         this.movimientosDelMes.forEach((movimiento: any) => {
-          this.totalDelMes += movimiento.precio;
+          this.totalDelMes += movimiento.precioCompra;
         });
 
         this.json.obtenerTitulos().subscribe({
           next: (titulosObtenidos) => {
             //Recibo lista de todas las acciones
             this.listaTitulos = titulosObtenidos;
-            console.log(this.listaNombresAcciones);
-            
-    
+
             //Filtro activos en base a los activos comprados
             this.listaNombresAcciones.forEach((accion: any) => {
               this.listaTitulos.forEach((titulo: any) => {
-                console.log(accion);
-                
+                if (titulo.puntas) {
+                  titulo.puntas.cantidadCompra = 0;
+                } else {
+                  titulo.puntas = {
+                    cantidadCompra: 0,
+                    cantidadVenta: 0,
+                    precioCompra: 0,
+                    precioVenta: 0,
+                  };
+                }
+
+                this.listaCompras.forEach((compra: any) => {
+                  if (titulo.simbolo === compra.simbolo) {
+                    titulo.puntas.cantidadCompra += compra.cantidadCompra;
+                  }
+                });
                 if (titulo.simbolo === accion) {
                   this.activos.push(titulo);
                 }
@@ -137,12 +161,12 @@ export class ActivosComponent {
             console.error(error);
           },
         });
+
+        this.cdRef.markForCheck();
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
       },
     });
-
-    
   }
 }

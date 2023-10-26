@@ -5,7 +5,6 @@
       <div class="col">Activo</div>
       <div class="col">Descripcion</div>
       <div class="col">Activos comprados</div>
-      <div class="col">Activos Vendidos</div>
       <div class="col">Variacion diaria</div>
       <div class="col">Ultimo precio</div>
       <div class="col">Precio promedio de compra</div>
@@ -18,10 +17,20 @@
       <div class="col" [textContent]="activo.simbolo"></div>
       <div class="col" [textContent]="activo.descripcion"></div>
       <div class="col" [textContent]="activo.puntas.cantidadCompra"></div>
-      <div class="col" [textContent]="activo.puntas.cantidadVenta"></div>
       <div class="col" [textContent]="activo.variacionPorcentual + '%'"></div>
-      <div class="col" [textContent]="activo.ultimoPrecio | currency : '$' : 'symbol' : '1.2-2'"></div>
-      <div class="col" [textContent]="(activo.maximo + activo.minimo) / 2"></div>
+      <div
+        class="col"
+        [textContent]="
+          activo.ultimoPrecio | currency : '$' : 'symbol' : '1.2-2'
+        "
+      ></div>
+      <div
+        class="col"
+        [textContent]="
+          (activo.maximo + activo.minimo) / 2
+            | currency : '$' : 'symbol' : '1.2-2'
+        "
+      ></div>
       <div class="col" [textContent]="activo.fecha.slice(0, 10)"></div>
     </div>
   </div>
@@ -40,16 +49,24 @@
     </div>
     <div
       class="row portafolio__contenido-elemento"
-      *ngFor="let movimiento of movimientosDelMes"
+      *ngFor="let movimiento of ultimosMovimientosDelMes"
     >
       <div class="col-3" [textContent]="movimiento.simbolo"></div>
       <div class="col-3" [textContent]="movimiento.cantidadCompra"></div>
-      <div class="col-3" [textContent]="movimiento.precioCompra | currency : '$' : 'symbol' : '1.2-2'"></div>
+      <div
+        class="col-3"
+        [textContent]="
+          movimiento.precioCompra | currency : '$' : 'symbol' : '1.2-2'
+        "
+      ></div>
       <div class="col-3" [textContent]="movimiento.fecha.slice(0, 10)"></div>
     </div>
     <div class="row portafolio__contenido-subtitulo">
       <div class="col-6">Total</div>
-      <div class="col-6" [textContent]="totalDelMes | currency : '$' : 'symbol' : '1.2-2'"></div>
+      <div
+        class="col-6"
+        [textContent]="totalDelMes | currency : '$' : 'symbol' : '1.2-2'"
+      ></div>
     </div>
   </div>
 
@@ -58,8 +75,13 @@
   <div class="row">
     <div class="col">
       <h4 class="portafolio__contenido-subapartado">Mostrando actividad de:</h4>
-      <p [textContent]="fechaActual.toLocaleString('es-AR', { month: 'long' }) + ' de ' +fechaActual.getFullYear()">
-      </p>
+      <p
+        [textContent]="
+          fechaActual.toLocaleString('es-AR', { month: 'long' }) +
+          ' de ' +
+          fechaActual.getFullYear()
+        "
+      ></p>
     </div>
     <div class="col">
       <h4 class="portafolio__contenido-subapartado">
@@ -69,4 +91,3 @@
     </div>
   </div>
 </article>
-

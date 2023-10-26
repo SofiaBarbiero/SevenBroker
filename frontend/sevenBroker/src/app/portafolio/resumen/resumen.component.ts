@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CompraService } from 'src/app/services/compra/compra.service';
@@ -33,7 +33,8 @@ export class ResumenComponent {
     private json: JsonService,
     private cuenta: CuentaService,
     private compra: CompraService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private cdRef: ChangeDetectorRef
   ) {}
 
   totalEnCompras(compras: any) {
@@ -108,6 +109,8 @@ export class ResumenComponent {
 
         //Aprovechamos a calcular el total valorizado gracias a las compras
         this.totalValorizado = this.totalEnCompras(this.listaComprasUsuario);
+
+        this.cdRef.markForCheck();
       },
       error: (error) => {
         console.log(error);
