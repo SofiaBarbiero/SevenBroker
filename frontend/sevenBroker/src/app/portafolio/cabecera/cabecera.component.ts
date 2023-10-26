@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-cabecera',
   templateUrl: './cabecera.component.html',
@@ -11,9 +10,9 @@ export class CabeceraComponent {
     apellido: '',
   };
 
-  constructor(private cookie: CookieService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.usuario = JSON.parse(this.cookie.get('usuario'));
+    this.usuario = JSON.parse(localStorage.getItem('usuario') as string);
   }
 }

@@ -1,50 +1,61 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/login/auth.service';
-import {NavigationService} from 'src/app/services/navigation/navigation.service'
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-
   isLogged: boolean = false;
-  cookieService: any;
 
+  constructor(
+    private NavigationService: NavigationService,
+    private authService: AuthService
+  ) {}
 
-constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router, private cookie: CookieService){}
-
-ngOnInit() {
-  
-  if(JSON.parse(this.cookie.get("isLogged"))){
-    this.isLogged=true;
+  ngOnInit() {
+    this.authService.isLogged.subscribe({
+      next: (response) => {
+        this.isLogged = response;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
-  console.log(this.isLogged);
-  
-}
 
+  navigateHome(e: any) {
+    e.preventDefault();
+    this.NavigationService.navigateToHome();
+  }
+  navigateCotizaciones(e: any) {
+    e.preventDefault();
+    this.NavigationService.navigateToCotizaciones();
+  }
+  navigatePortafolio(e: any) {
+    e.preventDefault();
+    console.log(this.isLogged);
 
-navigateHome(){
-this.NavigationService.navigateToHome()
-}
-navigateCotizaciones(){
-  this.NavigationService.navigateToCotizaciones()
-}
-navigatePortafolio(){
-  this.NavigationService.navigateToPortafolio()
-}
-navigateRegister(){
-  this.NavigationService.navigateToRegister()
-}
-navigateIngreso(){
-  this.NavigationService.navigateToIngreso()
-}
+    if (this.isLogged) {
+      this.NavigationService.navigateToPortafolio();
+    } else {
+      alert('Necesitas iniciar sesion para acceder al portafolio');
+      return;
+    }
+  }
+  navigateRegister(e: any) {
+    e.preventDefault();
+    this.NavigationService.navigateToRegister();
+  }
+  navigateIngreso(e: any) {
+    e.preventDefault();
+    this.NavigationService.navigateToIngreso();
+  }
 
-
-onLogout(): void {
-  this.authService.logout();
-}
+  onLogout(e: any): void {
+    e.preventDefault();
+    this.authService.logout();
+  }
 }

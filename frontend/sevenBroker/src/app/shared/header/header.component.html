@@ -25,7 +25,7 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
-          <li (click)="navigateHome()" class="nav-item">
+          <li (click)="navigateHome($event)" class="nav-item">
             <a
               routerLink="/home"
               class="nav-link active"
@@ -37,34 +37,26 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Quienes Somos</a>
           </li>
-          <li (click)="navigatePortafolio()" class="nav-item">
-            <a routerLink="/portafolio" class="nav-link" href="/portafolio">Portafolio</a>
+          <li (click)="navigatePortafolio($event)" class="nav-item">
+            <a routerLink="/portafolio" class="nav-link" href="/portafolio"
+              >Portafolio</a
+            >
           </li>
-          <li (click)="navigateCotizaciones()" class="nav-item">
+          <li (click)="navigateCotizaciones($event)" class="nav-item">
             <a routerLink="/cotizaciones" class="nav-link" href="/cotizaciones"
               >Cotizaciones</a
             >
           </li>
-          <li *ngIf="!isLogged; else viewLogout" (click)="navigateIngreso()" class="nav-item">
-            <a  class="nav-link" href="/ingreso"
-              >Iniciar Sesión
-            </a>
+          <li
+            *ngIf="!isLogged"
+            (click)="navigateIngreso($event)"
+            class="nav-item"
+          >
+            <a class="nav-link" href="/ingreso">Iniciar Sesión</a>
           </li>
-          <ng-template #viewLogout>
-            <li (click)="onLogout()" class="nav-item">
-              <a class="nav-link">Cerrar Sesión</a>
-            </li>
-          </ng-template>
-          <li *ngIf="!isLogged; else viewRegister" (click)="navigateRegister()" class="nav-item">
-            <button type="button" class="carrousel-button-left">
-                Registrate con nosotros
-            </button>
+          <li *ngIf="isLogged" (click)="onLogout($event)" class="nav-item">
+            <a class="nav-link" href="/ingreso">Cerrar Sesión</a>
           </li>
-          <ng-template #viewRegister>
-            <li (click)="onLogout()" class="nav-item">
-              
-            </li>
-          </ng-template>
         </ul>
       </div>
     </div>

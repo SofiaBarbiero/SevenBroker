@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/login/auth.service';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private cookieService: CookieService
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -51,7 +49,7 @@ export class LoginComponent implements OnInit {
               next: (response) => {
                 this.datosUsuario = response;
                 this.stringUsuario = JSON.stringify(this.datosUsuario);
-                this.cookieService.set('usuario', this.stringUsuario);
+                localStorage.setItem('usuario', this.stringUsuario);
               },
               error: (error) => {
                 console.log(error);

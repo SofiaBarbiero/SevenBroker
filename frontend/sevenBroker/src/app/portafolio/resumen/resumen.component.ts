@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CompraService } from 'src/app/services/compra/compra.service';
-import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
@@ -23,17 +22,15 @@ export class ResumenComponent {
 
   cuentaActiva: any = {};
 
-  stringUsuario: string = '';
+  stringUsuario: string | null = '';
 
   Usuario: any = {};
 
   totalValorizado: number = 0;
 
   constructor(
-    private json: JsonService,
     private cuenta: CuentaService,
     private compra: CompraService,
-    private cookieService: CookieService,
     private cdRef: ChangeDetectorRef
   ) {}
 
@@ -48,10 +45,10 @@ export class ResumenComponent {
   }
 
   ngOnInit(): void {
-    this.stringUsuario = this.cookieService.get('usuario');
+    this.stringUsuario = localStorage.getItem('usuario');
 
     if (this.stringUsuario !== '') {
-      this.Usuario = JSON.parse(this.stringUsuario);
+      this.Usuario = JSON.parse(this.stringUsuario as string);
     } else {
       this.Usuario = null;
     }
