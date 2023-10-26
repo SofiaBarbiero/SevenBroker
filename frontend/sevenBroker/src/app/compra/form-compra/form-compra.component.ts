@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { DatosCompraService } from 'src/app/services/compra/datos-compra.service';
 import { CantidadCompra } from 'src/app/shared/interfaces/compra.interface';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CompraService } from 'src/app/services/compra/compra.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
+
+
 
 @Component({
   selector: 'app-form-compra',
