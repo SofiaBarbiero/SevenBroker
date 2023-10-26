@@ -45,16 +45,18 @@
               >Cotizaciones</a
             >
           </li>
-          <li *ngIf="!loginOn" (click)="navigateIngreso()" class="nav-item">
-            <a  class="nav-link" href="/login"
+          <li *ngIf="!isLogged; else viewLogout" (click)="navigateIngreso()" class="nav-item">
+            <a  class="nav-link" href="/ingreso"
               >Iniciar Sesión</a
             >
           </li>
+          <ng-template #viewLogout>
+            <li (click)="onLogout()" class="nav-item">
+              <a class="nav-link" >Cerrar Sesión</a
+              >
+            </li>
+          </ng-template>
 
-          <li *ngIf="loginOn"  class="nav-item">
-            <a class="nav-link" >Cerrar Sesión</a
-            >
-          </li>
         </ul>
       </div>
     </div>

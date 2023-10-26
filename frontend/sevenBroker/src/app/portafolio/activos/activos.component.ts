@@ -1,204 +1,142 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { CompraService } from 'src/app/services/compra/compra.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-activos',
   templateUrl: './activos.component.html',
-  styleUrls: ['./activos.component.css']
+  styleUrls: ['./activos.component.css'],
 })
 export class ActivosComponent {
-
-  titulosDelUsuario: any = {};
+  listaTitulos: any = {};
 
   movimientosDelMes: any = {};
 
+  listaCompras: any = {};
+
+  listaComprasUsuario: any = {};
+
   activosDelUsuario: any = {};
+
+  listaNombresAcciones: string[] = [];
 
   activos: any[] = [];
 
+  cuentaActiva: any = {};
+
+  stringUsuario: string = '';
+
+  Usuario: any = {};
+
   totalDelMes: number = 0;
+
   cantidadDelMes: number = 0;
 
-  constructor(private json:JsonService){
+  fechaActual: Date = new Date();
 
-  }  
+  constructor(
+    private json: JsonService,
+    private cuenta: CuentaService,
+    private compra: CompraService,
+    private cookieService: CookieService
+  ) {}
 
-  
-    
-  totalEsteMes(){
-    let total= 0;
-    
-    this.movimientosDelMes.movimientos.forEach((movimiento: any) => {
-      if(movimiento.tipo === "compra"){
-        total += movimiento.precio
-      }
-      else if(movimiento.tipo === "venta"){
-        total -= movimiento.precio
-      }
-    })
+  totalEsteMes() {
+    let total = 0;
+
+    this.movimientosDelMes.forEach((movimiento: any) => {
+      total += movimiento.precio;
+    });
 
     return total;
   }
 
   ngOnInit(): void {
+    this.stringUsuario = this.cookieService.get('usuario');
 
-    this.json.obtenerIndexActivos().subscribe({
-      next: (indexObtenidos) => {
-        //Recibo activos que tiene el usuario
-        this.activosDelUsuario.indexActivos = indexObtenidos;
+    if (this.stringUsuario !== '') {
+      this.Usuario = JSON.parse(this.stringUsuario);
+    } else {
+      this.Usuario = null;
+    }
+
+    //Obtenemos la cuenta activa
+    this.cuenta.get().subscribe({
+      next: (result) => {
+        this.cuentaActiva = result.find(
+          (cuentaUnica: any) => cuentaUnica.usuarioId === this.Usuario.id
+        );
       },
       error: (error) => {
         console.error(error);
-      }
+      },
+    });
+
+    //Obtenemos la lista de compras del usuario especifico
+    this.compra.get().subscribe({
+      next: (result) => {
+        this.listaCompras = result;
+
+        //Separamos las compras del usuario actual
+        this.listaComprasUsuario = this.listaCompras.filter(
+          (compraUnica: any) => {
+            if (compraUnica.cuentaId === this.cuentaActiva.id) {
+              return compraUnica;
+            }
+          }
+        );
+
+        //Guardamos los nombres de las acciones compradas
+        this.listaComprasUsuario.forEach((compraUnica: any) => {
+          if (!this.listaNombresAcciones.includes(compraUnica.simbolo)) {
+            this.listaNombresAcciones.push(compraUnica.simbolo);
+          }
+        });
+
+        //Guardamos las compras realizadas en este mes unicamente
+        this.movimientosDelMes = this.listaComprasUsuario.filter(
+          (compraUnica: any) => {
+            if (
+              new Date(compraUnica.fecha).getMonth() ===
+              this.fechaActual.getMonth()
+            ) {
+              return compraUnica;
+            }
+          }
+        );
+
+        //Cantidad de movimientos este mes
+        this.cantidadDelMes = this.movimientosDelMes.length;
+
+        //Calculamos el total gastado este mes
+        this.movimientosDelMes.forEach((movimiento: any) => {
+          this.totalDelMes += movimiento.precio;
+        });
+      },
+      error: (error) => {
+        console.log(error);
+      },
     });
 
     this.json.obtenerTitulos().subscribe({
       next: (titulosObtenidos) => {
         //Recibo lista de todas las acciones
-        this.titulosDelUsuario.titulos = titulosObtenidos;
-        //Filtro activos en base al indice de que acciones tiene el usuario
-        this.activos = this.titulosDelUsuario.titulos.filter((accion: any) => {
-          if(this.activosDelUsuario.indexActivos.includes(this.titulosDelUsuario.titulos.indexOf(accion))){
-            return accion;
-          }
+        this.listaTitulos = titulosObtenidos;
+
+        //Filtro activos en base a los activos comprados
+        this.listaNombresAcciones.forEach((accion: any) => {
+          this.listaTitulos.forEach((titulo: any) => {
+            if (titulo.simbolo === accion.simbolo) {
+              this.activos.push(titulo);
+            }
+          });
         });
       },
       error: (error) => {
         console.error(error);
-      }
-    });
-
-
-
-    this.json.obtenerMovimientosDelMes().subscribe({
-      next: (movimientosObtenidos) => {
-        //Recibo los activos movidos este mes
-        this.movimientosDelMes.movimientos = movimientosObtenidos;
-        //Calculo el total de dinero este mes
-        this.totalDelMes = this.totalEsteMes();
-        //Guardo la cantidad de movimientos en este mes
-        this.cantidadDelMes = this.movimientosDelMes.movimientos.length;
       },
-      error: (error) => {
-        console.error(error);
-      }
     });
-    
   }
-
 }
-
-//Datos de prueba:
-/*
-any = {
-  titulos: [
-    {
-      simbolo: "AGRO",
-      puntas: {
-        cantidadCompra: 1.000,
-        precioCompra: 134.000,
-        precioVenta: 127.000,
-        cantidadVenta: 9.000
-      },
-      ultimoPrecio: 132.175,
-      variacionPorcentual: 0.00,
-      apertura: 131.500,
-      maximo: 137.000,
-      minimo: 128.000,
-      ultimoCierre: 132.750,
-      volumen: 0.000,
-      cantidadOperaciones: 0.0,
-      fecha: "2023-06-26T03:00:02.913",
-      tipoOpcion: null,
-      precioEjercicio: null,
-      fechaVencimiento: null,
-      mercado: 1,
-      moneda: 1,
-      descripcion: "Agrometal",
-      plazo: "T2",
-      laminaMinima: 1,
-      lote: 1
-    },
-    {
-      simbolo: "ALUA",
-      puntas: {
-        cantidadCompra: 13.000,
-        precioCompra: 380.000,
-        precioVenta: 358.000,
-        cantidadVenta: 47.000
-      },
-      ultimoPrecio: 369.500,
-      variacionPorcentual: 0.00,
-      apertura: 378.000,
-      maximo: 380.000,
-      minimo: 365.000,
-      ultimoCierre: 369.500,
-      volumen: 0.000,
-      cantidadOperaciones: 0.0,
-      fecha: "2023-06-26T03:00:03.003",
-      tipoOpcion: null,
-      precioEjercicio: null,
-      fechaVencimiento: null,
-      mercado: 1,
-      moneda: 1,
-      descripcion: "Aluar",
-      plazo: "T2",
-      laminaMinima: 1,
-      lote: 1
-    },
-    {
-      simbolo: "AUSO",
-      puntas: {
-        cantidadCompra: 50.000,
-        precioCompra: 563.000,
-        precioVenta: 624.000,
-        cantidadVenta: 100.000
-      },
-      ultimoPrecio: 624.500,
-      variacionPorcentual: 0.00,
-      apertura: 625.500,
-      maximo: 625.500,
-      minimo: 611.000,
-      ultimoCierre: 624.500,
-      volumen: 0.000,
-      cantidadOperaciones: 0.0,
-      fecha: "2023-06-26T03:00:02.767",
-      tipoOpcion: null,
-      precioEjercicio: null,
-      fechaVencimiento: null,
-      mercado: 1,
-      moneda: 1,
-      descripcion: "Autopistas del Sol",
-      plazo: "T2",
-      laminaMinima: 1,
-      lote: 1
-    },
-    {
-      simbolo: "BBAR",
-      puntas: {
-        cantidadCompra: 10.000,
-        precioCompra: 1051.000,
-        precioVenta: 1043.000,
-        cantidadVenta: 1.000
-      },
-      ultimoPrecio: 1010.600,
-      variacionPorcentual: 0.00,
-      apertura: 999.000,
-      maximo: 1038.000,
-      minimo: 992.000,
-      ultimoCierre: 1010.600,
-      volumen: 0.000,
-      cantidadOperaciones: 0.0,
-      fecha: "2023-06-26T03:00:01.257",
-      tipoOpcion: null,
-      precioEjercicio: null,
-      fechaVencimiento: null,
-      mercado: 1,
-      moneda: 1,
-      descripcion: "Bbva",
-      plazo: "T2",
-      laminaMinima: 1,
-      lote: 1
-    }
-  ]
-  */

@@ -1,119 +1,117 @@
 import { Component, OnInit } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
-
+import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
+import { CompraService } from 'src/app/services/compra/compra.service';
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-resumen',
   templateUrl: './resumen.component.html',
-  styleUrls: ['./resumen.component.css']
+  styleUrls: ['./resumen.component.css'],
 })
 export class ResumenComponent {
+  listaCompras: any[] = [];
 
-  titulosDelUsuario: any = {};
+  listaNombresAcciones: string[] = [];
+
+  listaComprasUsuario: any = {};
 
   movimientosDelMes: any = {};
 
-  activosDelUsuario: any = {};
-
-  efectivoDisponible: number = 0;
-
   activos: any[] = [];
 
-  activosIndividuales: any[] = []
+  activosIndividuales: any[] = [];
 
-  totalValorizadoEnActivos: number = 0;
+  cuentaActiva: any = {};
 
+  stringUsuario: string = '';
 
-  constructor(private json:JsonService){
+  Usuario: any = {};
 
-  }
+  totalValorizado: number = 0;
 
+  constructor(
+    private json: JsonService,
+    private cuenta: CuentaService,
+    private compra: CompraService,
+    private cookieService: CookieService
+  ) {}
 
-  montoActivoUnico(activo: any){
-    const punta = activo.puntas;
-    const total = (punta.cantidadVenta - punta.cantidadCompra ) * punta.precioCompra
-    return total;
-  }
-
-  totalActivos(activosIndividuales: any){
-
+  totalEnCompras(compras: any) {
     let total: number = 0;
 
-    activosIndividuales.forEach((activo: any) => {
-      total += activo.montoTotal; 
-    })
+    compras.forEach((compraUnica: any) => {
+      total += compraUnica.precioCompra;
+    });
 
     return total;
   }
-  
 
   ngOnInit(): void {
+    this.stringUsuario = this.cookieService.get('usuario');
 
-    this.json.obtenerDatosUsuario().subscribe({
-      next: (datosObtenidos) => {
-        this.efectivoDisponible = datosObtenidos.saldoDisponible;
+    if (this.stringUsuario !== '') {
+      this.Usuario = JSON.parse(this.stringUsuario);
+    } else {
+      this.Usuario = null;
+    }
+
+    //Obtenemos la cuenta activa
+    this.cuenta.get().subscribe({
+      next: (result) => {
+        this.cuentaActiva = result.find(
+          (cuentaUnica: any) => cuentaUnica.usuarioId === this.Usuario.id
+        );
       },
       error: (error) => {
         console.error(error);
-      }
-    })
-    
-
-    this.json.obtenerIndexActivos().subscribe({
-      next: (indexObtenidos) => {
-        //Recibo activos que tiene el usuario
-        this.activosDelUsuario.indexActivos = indexObtenidos;
       },
-      error: (error) => {
-        console.error(error);
-      }
     });
 
-    this.json.obtenerTitulos().subscribe({
-      next: (titulosObtenidos) => {
+    //Obtenemos la lista de compras del usuario especifico
+    this.compra.get().subscribe({
+      next: (result) => {
+        this.listaCompras = result;
 
-        //Recibo lista de todas las acciones
-        this.titulosDelUsuario.titulos = titulosObtenidos;
+        //Separamos las compras del usuario actual
+        this.listaComprasUsuario = this.listaCompras.filter(
+          (compraUnica: any) => {
+            if (compraUnica.cuentaId === this.cuentaActiva.id) {
+              return compraUnica;
+            }
+          }
+        );
 
-        //Filtro activos en base al indice de que acciones tiene el usuario
-        this.activos = this.titulosDelUsuario.titulos.filter((accion: any) => {
-          if(this.activosDelUsuario.indexActivos.includes(this.titulosDelUsuario.titulos.indexOf(accion))){
-            return accion;
+        //Guardamos los nombres de las acciones compradas
+        this.listaComprasUsuario.forEach((compraUnica: any) => {
+          if (!this.listaNombresAcciones.includes(compraUnica.simbolo)) {
+            this.listaNombresAcciones.push(compraUnica.simbolo);
           }
         });
 
-        //Hago calculos necesarios para calculos individuales
-        this.activosIndividuales = this.activos.map((activo) => {
-          let activoIndividual = {
-            simbolo: activo.simbolo,
-            montoTotal: this.montoActivoUnico(activo)
-          }
-          return activoIndividual
+        //Creo la lista de activosIndividuales y le doy formato al objeto
+        this.listaNombresAcciones.forEach((nombre: any) => {
+          1;
+          this.activosIndividuales.push({
+            simbolo: nombre,
+            precio: 0,
+          });
         });
 
-        this.totalValorizadoEnActivos = this.totalActivos(this.activosIndividuales);
+        //Calculamos el total de gato segun la accion
+        this.activosIndividuales.forEach((activo: any) => {
+          this.listaComprasUsuario.forEach((compraUnica: any) => {
+            if (activo.simbolo === compraUnica.simbolo) {
+              activo.precio += compraUnica.precioCompra;
+            }
+          });
+        });
+
+        //Aprovechamos a calcular el total valorizado gracias a las compras
+        this.totalValorizado = this.totalEnCompras(this.listaComprasUsuario);
       },
       error: (error) => {
-        console.error(error);
-      }
-    });
-
-
-
-    this.json.obtenerMovimientosDelMes().subscribe({
-      next: (movimientosObtenidos) => {
-        //Recibo los activos movidos este mes
-        this.movimientosDelMes.movimientos = movimientosObtenidos;
-        // //Calculo el total de dinero este mes
-        // this.totalDelMes = this.totalEsteMes();
-        // //Guardo la cantidad de movimientos en este mes
-        // this.cantidadDelMes = this.movimientosDelMes.movimientos.length;
+        console.log(error);
       },
-      error: (error) => {
-        console.error(error);
-      }
     });
-    
   }
-
-  
 }

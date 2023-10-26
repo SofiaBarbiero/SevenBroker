@@ -25,8 +25,8 @@ const routes: Routes = [
 
   //Redirecciones de componentes
   { path: "home", component: DashboardHomeComponent },
-  { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
+  { path: "ingreso", component: LoginComponent },
+  { path: "registro", component: RegisterComponent },
   { path: "portafolio", component: DashboardPortafolioComponent},
   { path: "cotizaciones", component: DashboardCotizacionesComponent},
   { path: "compra", component: DashboardCompraComponent},

@@ -8,7 +8,7 @@
     <div class="row portafolio__contenido-elemento">
       <div class="col">Pesos (AR$)</div>
       <div class="col">
-        {{ efectivoDisponible | currency : "$" : "symbol" : "1.2-2" }}
+        {{ cuentaActiva.saldo | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div class="row portafolio__contenido-elemento">
       <div class="col">Pesos (AR$)</div>
       <div class="col">
-        {{ totalValorizadoEnActivos | currency : "$" : "symbol" : "1.2-2" }}
+        {{ totalValorizado | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
     >
       <div class="col">{{ activo.simbolo }}</div>
       <div class="col">
-        {{ activo.montoTotal | currency : "$" : "symbol" : "1.2-2" }}
+        {{ activo.precio | currency : "$" : "symbol" : "1.2-2" }}
       </div>
     </div>
   </div>

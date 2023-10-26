@@ -1,24 +1,26 @@
 .custom-center{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px;
 }
 
 .justify-content-center {
-  -ms-flex-pack: center!important;
   justify-content: center!important;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .container .card{
   border: none ;
   background-color: #F5E8FF ;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
 }
 
 .container .card-body{
@@ -53,3 +55,28 @@
   margin-bottom: 0.1rem ;
   color: #662D91 ;
 }
+
+.input-group-append{
+  display: flex;
+}
+
+.form-control{
+  margin-right: 1px;
+}
+
+.input-group-append{
+  display: flex;
+
+}
+
+.input-group-text{
+  background-color: #FFF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.12)) ;
+}
+
+@media (min-width: 768px){
+
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 100%;
+}}
