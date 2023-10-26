@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-8">
-    <p class="subtitulo">{{subtitle}}</p>
+    <p class="subtitulo">{{ subtitle }}</p>
   </div>
 </div>
 <div class="row">
@@ -33,12 +33,14 @@
           <td class="table-info">{{ cotizacion.puntas?.cantidadCompra }}</td>
           <td class="table-info">
             {{
-              cotizacion.puntas?.precioCompra | currency : "$" : "symbol" : "1.2-2"
+              cotizacion.puntas?.precioCompra
+                | currency : "$" : "symbol" : "1.2-2"
             }}
           </td>
           <td class="table-danger">
             {{
-              cotizacion.puntas?.precioVenta | currency : "$" : "symbol" : "1.2-2"
+              cotizacion.puntas?.precioVenta
+                | currency : "$" : "symbol" : "1.2-2"
             }}
           </td>
           <td class="table-danger">{{ cotizacion.puntas?.cantidadVenta }}</td>
@@ -47,8 +49,20 @@
           <td>{{ cotizacion.maximo }}</td>
           <td>{{ cotizacion.ultimoCierre }}</td>
           <td>{{ cotizacion.volumen }}</td>
-          <td><button class="button-buy" (click)="comprarAccion(cotizacion.simbolo, cotizacion.puntas.precioCompra)"
-            >Comprar</button></td>
+          <td>
+            <button
+              *ngIf="isLogged"
+              class="button-buy"
+              (click)="
+                comprarAccion(
+                  cotizacion.simbolo,
+                  cotizacion.puntas.precioCompra
+                )
+              "
+            >
+              Comprar
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

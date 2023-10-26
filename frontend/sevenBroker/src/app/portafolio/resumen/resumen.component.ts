@@ -28,6 +28,8 @@ export class ResumenComponent {
 
   totalValorizado: number = 0;
 
+  saldo: number = 0;
+
   constructor(
     private cuenta: CuentaService,
     private compra: CompraService,
@@ -113,5 +115,30 @@ export class ResumenComponent {
         console.log(error);
       },
     });
+  }
+
+  limpiarCampo(e: any) {
+    e.preventDefault();
+    e.target.value = e.target.value.replace(/[^0-9]+/g, '');
+
+    this.saldo = parseFloat(e.target.value);
+  }
+
+  cargarSaldo(e: any) {
+    if (this.saldo > 0) {
+      this.cuentaActiva.saldo = this.saldo + this.cuentaActiva.saldo;
+
+      this.cuenta.put(this.cuentaActiva.id, this.cuentaActiva).subscribe({
+        next: (response) => {
+          console.log(response);
+          alert('Saldo cargado!');
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    } else {
+      alert('Debe ingresar un monto valido para poder ingresar saldo');
+    }
   }
 }
