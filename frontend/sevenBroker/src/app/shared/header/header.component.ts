@@ -13,17 +13,23 @@ export class HeaderComponent implements OnInit {
 
   isLogged: boolean = false;
   cookieService: any;
+  currentUrl: string | undefined;
 
 
-constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router, private cookie: CookieService){}
+constructor(private NavigationService : NavigationService,
+  private authService: AuthService,
+  private router: Router,
+   private cookie: CookieService){
+    this.currentUrl = this.router.url;
+}
 
 ngOnInit() {
-  
+
   if(JSON.parse(this.cookie.get("isLogged"))){
     this.isLogged=true;
   }
   console.log(this.isLogged);
-  
+
 }
 
 
