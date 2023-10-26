@@ -47,23 +47,24 @@
           </li>
           <li *ngIf="!isLogged; else viewLogout" (click)="navigateIngreso()" class="nav-item">
             <a  class="nav-link" href="/ingreso"
-              >Iniciar Sesión</a
-            >
+              >Iniciar Sesión
+            </a>
           </li>
           <ng-template #viewLogout>
             <li (click)="onLogout()" class="nav-item">
-              <a class="nav-link" >Cerrar Sesión</a
-              >
+              <a class="nav-link">Cerrar Sesión</a>
             </li>
           </ng-template>
-          <button
-            type="button"
-            class="carrousel-button-left" 
-            (click)="navigateRegister()"
-            >
-            Registrate con nosotros
-         </button>
-
+          <li *ngIf="!isLogged; else viewRegister" (click)="navigateRegister()" class="nav-item">
+            <button type="button" class="carrousel-button-left">
+                Registrate con nosotros
+            </button>
+          </li>
+          <ng-template #viewRegister>
+            <li (click)="onLogout()" class="nav-item">
+              
+            </li>
+          </ng-template>
         </ul>
       </div>
     </div>

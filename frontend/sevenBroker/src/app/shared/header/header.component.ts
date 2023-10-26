@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isLogged: boolean = false;
+  cookieService: any;
 
 
 constructor(private NavigationService : NavigationService,  private authService: AuthService, private router: Router){}

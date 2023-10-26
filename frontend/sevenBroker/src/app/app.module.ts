@@ -12,6 +12,7 @@ import { CompraModule } from './compra/compra.module';
 import { CotizacionesModule } from './cotizaciones/cotizaciones.module';
 import { AuthService } from './services/login/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     SharedModule,
     AuthModule,
