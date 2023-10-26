@@ -9,7 +9,7 @@ export class CompraService {
 
   constructor(private http: HttpClient) { }
 
-  url : string = "http://localhost:5124/"
+  url : string = "http://localhost:7124/"
 
   post(objeto : any): Observable<any>{
     return this.http.post(this.url + "api/Compra", objeto);
