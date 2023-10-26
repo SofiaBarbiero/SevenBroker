@@ -22,6 +22,7 @@
     background-color: #662D91;
     border-radius: 12px;
     font-size: 1rem;
+    justify-content: end;
   }
 
 footer{ 
