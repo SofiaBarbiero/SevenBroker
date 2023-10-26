@@ -57,6 +57,15 @@
           <li *ngIf="isLogged" (click)="onLogout($event)" class="nav-item">
             <a class="nav-link" href="/ingreso">Cerrar Sesión</a>
           </li>
+          <li
+            *ngIf="!isLogged"
+            (click)="navigateRegister($event)"
+            class="nav-item"
+          >
+            <button type="button" class="carrousel-button-left">
+              Registrate con nosotros
+            </button>
+          </li>
         </ul>
       </div>
     </div>
