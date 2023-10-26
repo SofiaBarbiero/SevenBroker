@@ -1,6 +1,9 @@
 <div class="row m-3 portafolio__head">
   <div class="col-xxl-2 portafolio__titulo">
     <h1>PORTAFOLIO</h1>
-    <h2 class="portafolio__titulo-nombre">{{ usuario }}</h2>
+    <h2
+      class="portafolio__titulo-nombre"
+      [textContent]="usuario.nombre + '' + usuario.apellido"
+    ></h2>
   </div>
 </div>
