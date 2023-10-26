@@ -16,7 +16,9 @@ export class FormCompraComponent implements OnInit{
     metodoPago: new FormControl('', Validators.required),
   }); 
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 
   saveData(){
     console.log(this.formCompra.value);

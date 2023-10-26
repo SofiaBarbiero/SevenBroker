@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BodyCompraComponent } from './body-compra.component';
 
 describe('BodyCompraComponent', () => {
