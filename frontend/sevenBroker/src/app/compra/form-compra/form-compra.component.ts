@@ -6,6 +6,7 @@ import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CompraService } from 'src/app/services/compra/compra.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
+import { LoginComponent } from 'src/app/auth/login/login.component';
 
 
 
@@ -58,23 +59,25 @@ export class FormCompraComponent implements OnInit{
         console.log(err);
       }
     })
+    console.log(this.datosCuenta)
   }
 
   saveData(){
     const formValue = this.formCompra.value as CantidadCompra;
 
-    this.objetoCompra.cantidad = formValue.cantidad 
-    this.objetoAccion.precioCompra = formValue.cantidad * this.objetoAccion.precioCompra
-    this.objetoAccion.simbolo = this.objetoAccion.simbolo
-    this.objetoAccion.cuentaId = this.datosCuenta.id
+    this.objetoCompra.cantidadCompra = formValue.cantidad 
+    this.objetoCompra.precioCompra = formValue.cantidad * this.objetoAccion.precioCompra
+    this.objetoCompra.simbolo = this.objetoAccion.simbolo
+    this.objetoCompra.cuentaId = this.datosCuenta.id
 
-    this.compraService.post(this.objetoAccion).subscribe({
+
+    this.compraService.post(this.objetoCompra).subscribe({
       next: (res) => {
         console.log(res);
 
         alert("hola");
 
-        this.navigation.navigateToCotizaciones();
+        this.navigation.navigateToPortafolio();
       },
       error: (err) => console.log(err) 
     })

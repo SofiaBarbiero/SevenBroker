@@ -15,9 +15,9 @@ namespace Backend.Repository
 
         //UsuarioModel
 
-        public async Task<UsuarioModel?> GetUsuario(int id)
+        public async Task<UsuarioModel?> GetUsuario(string email)
         {
-            UsuarioModel? usuario = await Usuario.FirstOrDefaultAsync(u => u.Id == id);
+            UsuarioModel? usuario = await Usuario.FirstOrDefaultAsync(u => u.Email == email);
             return usuario;
         }
 
@@ -36,14 +36,14 @@ namespace Backend.Repository
         {
             EntityEntry<UsuarioModel> result = await Usuario.AddAsync(usuario);
             await SaveChangesAsync();
-            return await GetUsuario(result.Entity.Id);
+            return await GetUsuario(result.Entity.Email);
         }
 
         public async Task<UsuarioModel?> UpdateUsuario(UsuarioModel usuario)
         {
             EntityEntry<UsuarioModel> response = Usuario.Update(usuario);
             await SaveChangesAsync();
-            return await GetUsuario(response.Entity.Id);
+            return await GetUsuario(response.Entity.Email);
         }
 
         public void DeleteUsuario(int id)
