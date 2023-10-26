@@ -7,7 +7,10 @@
     </div>
     <div class="row portafolio__contenido-elemento">
       <div class="col">Pesos (AR$)</div>
-      <div class="col" [textContent]="cuentaActiva.saldo | currency : '$' : 'symbol' : '1.2-2'"></div>
+      <div
+        class="col"
+        [textContent]="cuentaActiva.saldo | currency : '$' : 'symbol' : '1.2-2'"
+      ></div>
     </div>
   </div>
 
@@ -19,7 +22,10 @@
     </div>
     <div class="row portafolio__contenido-elemento">
       <div class="col">Pesos (AR$)</div>
-      <div class="col" [textContent]="totalValorizado | currency : '$' : 'symbol' : '1.2-2'"></div>
+      <div
+        class="col"
+        [textContent]="totalValorizado | currency : '$' : 'symbol' : '1.2-2'"
+      ></div>
     </div>
   </div>
 
@@ -34,7 +40,30 @@
       *ngFor="let activo of activosIndividuales"
     >
       <div class="col" [textContent]="activo.simbolo"></div>
-      <div class="col" [textContent]="activo.precio | currency : '$' : 'symbol' : '1.2-2'"></div>
+      <div
+        class="col"
+        [textContent]="activo.precio | currency : '$' : 'symbol' : '1.2-2'"
+      ></div>
     </div>
+  </div>
+</article>
+<br />
+<article class="portafolio__contenido">
+  <h3 class="portafolio__contenido-apartado">Agregar Saldo</h3>
+  <div class="">
+    <input
+      maxlength="12"
+      type="input"
+      class="portafolio__saldo-input"
+      (input)="limpiarCampo($event)"
+    />
+    <br />
+    <br />
+    <input
+      type="button"
+      class="portafolio__saldo-button"
+      value="Cargar"
+      (click)="cargarSaldo($event)"
+    />
   </div>
 </article>

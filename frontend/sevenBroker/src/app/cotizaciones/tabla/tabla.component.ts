@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { JsonService } from 'src/app/services/json/json.service';
 import { DatosCompraService } from 'src/app/services/compra/datos-compra.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
+import { AuthService } from 'src/app/services/login/auth.service';
 
 @Component({
   selector: 'app-tabla',
@@ -15,13 +16,25 @@ export class TablaComponent {
 
   objetoAccion: any = {};
 
+  isLogged: any = true;
+
   constructor(
     private json: JsonService,
     private datosCompra: DatosCompraService,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.authService.isLogged.subscribe({
+      next: (response) => {
+        this.isLogged = response;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+
     this.cargar_cotizaciones();
   }
 
