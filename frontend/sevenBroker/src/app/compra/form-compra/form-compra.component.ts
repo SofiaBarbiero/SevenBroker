@@ -3,10 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatosCompraService } from 'src/app/services/compra/datos-compra.service';
 import { CantidadCompra } from 'src/app/shared/interfaces/compra.interface';
 import { CuentaService } from 'src/app/services/cuenta/cuenta.service';
-import { CookieService } from 'ngx-cookie-service';
 import { CompraService } from 'src/app/services/compra/compra.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
-import { LoginComponent } from 'src/app/auth/login/login.component';
 
 @Component({
   selector: 'app-form-compra',
@@ -27,7 +25,6 @@ export class FormCompraComponent implements OnInit {
 
   constructor(
     private datosCompra: DatosCompraService,
-    private cookies: CookieService,
     private cuentaService: CuentaService,
     private compraService: CompraService,
     private navigation: NavigationService,
@@ -52,7 +49,7 @@ export class FormCompraComponent implements OnInit {
       },
     });
 
-    this.datosUsuario = JSON.parse(this.cookies.get('usuario'));
+    this.datosUsuario = JSON.parse(localStorage.getItem('usuario') as string);
 
     this.cuentaService.get().subscribe({
       next: (response) => {

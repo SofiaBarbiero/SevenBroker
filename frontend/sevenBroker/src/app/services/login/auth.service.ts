@@ -3,35 +3,29 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
-
 })
 export class AuthService {
-
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    JSON.parse(localStorage.getItem('usuario') as string)
+  );
 
   get isLogged(): Observable<boolean> {
     return this.loggedIn.asObservable();
   }
 
-
   private apiUrl = 'https://localhost:7124/api/usuario';
   private apiUrlLogin = 'https://localhost:7124/api/usuario/login';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private cookieService: CookieService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): Observable<any> {
-    const loginData = {email: email, password: password}
-    this.loggedIn.next(true)
-    this.cookieService.set("isLogged", JSON.stringify(true))
-    return this.http.post<any[]>(this.apiUrlLogin, loginData)
+    const loginData = { email: email, password: password };
+    this.loggedIn.next(true);
+    localStorage.setItem('isLogged', JSON.stringify(true));
+    return this.http.post<any[]>(this.apiUrlLogin, loginData);
   }
 
   register(registerRequest: any): Observable<any> {
@@ -53,8 +47,8 @@ export class AuthService {
 
   logout() {
     this.loggedIn.next(false);
-    this.cookieService.delete("isLogged");
-    this.cookieService.delete("usuario");
+    localStorage.removeItem('isLogged');
+    localStorage.removeItem('usuario');
     this.router.navigate(['/ingreso']);
   }
 

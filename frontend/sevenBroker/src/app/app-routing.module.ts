@@ -17,23 +17,21 @@ import { DashboardCotizacionesComponent } from './cotizaciones/dashboard-cotizac
 //Compra
 import { DashboardCompraComponent } from './compra/dashboard-compra/dashboard-compra.component';
 
-
-
 const routes: Routes = [
   //Redireccion default al "Home"
-  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   //Redirecciones de componentes
-  { path: "home", component: DashboardHomeComponent },
-  { path: "ingreso", component: LoginComponent },
-  { path: "registro", component: RegisterComponent },
-  { path: "portafolio", component: DashboardPortafolioComponent},
-  { path: "cotizaciones", component: DashboardCotizacionesComponent},
-  { path: "compra", component: DashboardCompraComponent},
+  { path: 'home', component: DashboardHomeComponent },
+  { path: 'ingreso', component: LoginComponent },
+  { path: 'registro', component: RegisterComponent },
+  { path: 'portafolio', component: DashboardPortafolioComponent },
+  { path: 'cotizaciones', component: DashboardCotizacionesComponent },
+  { path: 'compra', component: DashboardCompraComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
