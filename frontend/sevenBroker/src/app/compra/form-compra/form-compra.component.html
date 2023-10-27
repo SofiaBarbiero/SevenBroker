@@ -1,11 +1,5 @@
 <h2 class="card-title text-center">Compra tus acciones</h2>
 <form [formGroup]="formCompra" (ngSubmit)="(saveData)" action="#" method="post">
-  <p
-    [textContent]="
-      'Saldo disponible: ' + (datosCuenta.saldo | currency : 'ARS' : 'symbol')
-    "
-  ></p>
-  <br />
   <p [textContent]="'Acción: ' + objetoAccion.simbolo"></p>
   <p
     [textContent]="

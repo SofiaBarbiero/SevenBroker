@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/login/auth.service';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   datosUsuario: any = {};
   stringUsuario: string = '';
+  deshabilitado: boolean = false;
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {}
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.deshabilitado = true;
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
@@ -56,11 +59,12 @@ export class LoginComponent implements OnInit {
               },
             });
 
-            this.router.navigate(['/cotizaciones']);
+            this.navigationService.navigateToPortafolio();
           },
 
           error: (error) => {
             console.log(error);
+            alert('Datos de inicio de sesion incorrectos');
           },
         });
       } else {
@@ -68,6 +72,10 @@ export class LoginComponent implements OnInit {
           'El correo electrónico y la contraseña deben estar definidos'
         );
       }
+    } else {
+      alert('Datos de inicio de sesion invalidos');
     }
+
+    this.deshabilitado = false;
   }
 }

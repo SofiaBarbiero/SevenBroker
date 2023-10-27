@@ -22,6 +22,7 @@ export class FormCompraComponent implements OnInit {
   };
   datosUsuario: any = {};
   datosCuenta: any = {};
+  valor: any;
 
   constructor(
     private datosCompra: DatosCompraService,
@@ -32,7 +33,10 @@ export class FormCompraComponent implements OnInit {
   ) {}
 
   formCompra = new FormGroup({
-    cantidad: new FormControl(0, Validators.required),
+    cantidad: new FormControl(0, [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+    ]),
   });
 
   get nombre() {
@@ -68,41 +72,56 @@ export class FormCompraComponent implements OnInit {
     });
   }
 
+  limpiarCampo(e: any) {}
+
   saveData() {
     const formValue = this.formCompra.value as CantidadCompra;
 
+    console.log(formValue.cantidad);
+    if (formValue.cantidad <= 0) {
+      alert('La cantidad a comprar debe ser mayor a 0');
+      return;
+    }
+
     this.objetoCompra.cantidadCompra = formValue.cantidad;
     this.objetoCompra.precioCompra =
-      formValue.cantidad * this.objetoAccion.precioCompra;
+      formValue.cantidad * this.objetoAccion.precioCompra * 1.015;
     this.objetoCompra.simbolo = this.objetoAccion.simbolo;
     this.objetoCompra.cuentaId = this.datosCuenta.id;
 
     if (this.objetoCompra.precioCompra <= this.datosCuenta.saldo) {
       this.compraService.post(this.objetoCompra).subscribe({
-        next: (res) => {},
-        error: (err) => console.log(err),
-      });
+        next: (res) => {
+          console.log(res);
+          alert('Compra realizada');
 
-      this.datosCuenta.saldo -= this.objetoCompra.precioCompra;
+          this.datosCuenta.saldo -= this.objetoCompra.precioCompra;
 
-      //Actualizamos la cuenta
-      this.cuentaService.put(this.datosCuenta.id, this.datosCuenta).subscribe({
-        next: (response) => {
-          console.log(response);
+          //Actualizamos la cuenta
+          this.cuentaService
+            .put(this.datosCuenta.id, this.datosCuenta)
+            .subscribe({
+              next: (response) => {
+                console.log(response);
+              },
+              error: (error) => {
+                console.error(error);
+              },
+            });
+          this.navigation.navigateToPortafolio();
         },
-        error: (error) => {
-          console.error(error);
+        error: (err) => {
+          console.log(err);
+          alert('Cantidad no valida');
+          return;
         },
       });
-
-      alert('Compra realizada!');
-      this.navigation.navigateToPortafolio();
     } else {
       alert('No tienes saldo disponible para realizar esta compra');
     }
   }
 
-  enviarCantidad(evento: any) {
-    this.datosCompra.enviarCantidad(evento.target.value);
+  enviarCantidad(e: any) {
+    this.datosCompra.enviarCantidad(e.target.value);
   }
 }

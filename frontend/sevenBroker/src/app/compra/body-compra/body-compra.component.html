@@ -1,14 +1,24 @@
 <div class="card-body">
-<h3 class="resume-title">Resumen de tu Compra</h3>
+  <h3 class="resume-title">Resumen de tu Compra</h3>
   <div>
     <span class="resumen-label">Accion:</span>
     <span class="resumen-item" [textContent]="objetoAccion.simbolo"></span>
   </div>
   <div>
     <span class="resumen-label">Comisión:</span>
-      <span class="resumen-item">1.5%</span>
-    </div>
+    <span
+      class="resumen-item"
+      [textContent]="
+        '1,5% - ' +
+        (objetoAccion.precioCompra * 0.015 | currency : 'ARS' : 'symbol')
+      "
+    ></span>
+  </div>
   <div>
-  <span class="resumen-label">Total compra:</span>
-  <span class="resumen-item" [textContent]="totalCompra | currency: 'ARS':'symbol'"></span>
+    <span class="resumen-label">Total compra:</span>
+    <span
+      class="resumen-item"
+      [textContent]="totalCompra | currency : 'ARS' : 'symbol'"
+    ></span>
+  </div>
 </div>
