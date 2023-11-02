@@ -16,8 +16,8 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  private apiUrl = 'https://localhost:7124/api/usuario';
-  private apiUrlLogin = 'https://localhost:7124/api/usuario/login';
+  private apiUrl = 'https://backend20231019115756.azurewebsites.net/api/usuario';
+  private apiUrlLogin = 'https://backend20231019115756.azurewebsites.net/api/usuario/login';
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -9,7 +9,7 @@ export class CompraService {
 
   constructor(private http: HttpClient) { }
 
-  url : string = "https://localhost:7124/"
+  url : string = "https://backend20231019115756.azurewebsites.net/"
 
   post(objeto : any): Observable<any>{
     return this.http.post(this.url + "api/Compra", objeto);

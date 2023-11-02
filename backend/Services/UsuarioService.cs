@@ -27,7 +27,7 @@ namespace Backend.Services
 
         public async Task<LoginDto> GetLogin(string email, string password)
         {
-            UsuarioModel result = await usuarioContext.GetLogin(email, password);
+            UsuarioModel? result = await usuarioContext.GetLogin(email, password);
             return result.ToDtoLogin();
         }
 
@@ -45,7 +45,7 @@ namespace Backend.Services
             };
 
             UsuarioModel? result = await usuarioContext.CreateUsuario(usuario);
-            return result?.ToDto();
+            return result.ToDto();
         }
 
         public async Task<UsuarioDto> Update(UsuarioDto usuarioDto)
