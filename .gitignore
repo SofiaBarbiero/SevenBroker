@@ -2,3 +2,5 @@
 /backend/obj/
 /backend/bin/
 /.VS/
+# Local Netlify folder
+.netlify
